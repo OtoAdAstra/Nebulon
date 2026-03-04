@@ -1,22 +1,28 @@
-//
-//  ContentView.swift
-//  Nebulon
-//
-//  Created by Oto Sharvashidze on 01.03.26.
-//
-
 import SwiftUI
 
 struct ContentView: View {
-    var body: some View {
-        VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundStyle(.tint)
-            Text("Hello, world!")
+    @State private var viewModel = APODViewModel(
+            fetchAPODUseCase: FetchAPODUseCase(
+                repository: APODRepository(
+                    client: NetworkClient()
+                )
+            )
+        )
+
+        var body: some View {
+            ScrollView {
+                VStack(alignment: .leading, spacing: 12) {
+                    Text(viewModel.apod?.title ?? "")
+                        .font(.title2.bold())
+                    Text(viewModel.apod?.explanation ?? "")
+                        .font(.body)
+                }
+                .padding()
+            }
+            .task {
+                await viewModel.onAppear()
+            }
         }
-        .padding()
-    }
 }
 
 #Preview {

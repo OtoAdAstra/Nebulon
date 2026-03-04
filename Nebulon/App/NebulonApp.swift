@@ -9,9 +9,11 @@ import SwiftUI
 
 @main
 struct NebulonApp: App {
+    private let container = DIContainer()
+    
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            TabBarView(container: container)
         }
     }
 }
