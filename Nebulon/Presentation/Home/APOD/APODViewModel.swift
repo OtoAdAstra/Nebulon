@@ -9,30 +9,19 @@ import Foundation
 @MainActor
 @Observable
 final class APODViewModel {
-    // UI state
+
     private(set) var apod: APOD?
     private(set) var state: ViewState = .idle
 
     private let fetchAPODUseCase: FetchAPODUseCase
-    private var lastFetchDate: String?
 
     init(fetchAPODUseCase: FetchAPODUseCase) {
         self.fetchAPODUseCase = fetchAPODUseCase
     }
 
     func onAppear() async {
-        let today = Self.todayString()
-        guard lastFetchDate != today else { return }
+        guard apod == nil else { return }
         await loadTodaysAPOD()
-        if state == .loaded {
-            lastFetchDate = today
-        }
-    }
-
-    private static func todayString() -> String {
-        let formatter = DateFormatter()
-        formatter.dateFormat = "yyyy-MM-dd"
-        return formatter.string(from: Date())
     }
 
     func loadAPOD(for date: String) async {
@@ -59,6 +48,7 @@ final class APODViewModel {
     }
 }
 
+//MARK: - States
 enum ViewState: Equatable {
     case idle
     case loading

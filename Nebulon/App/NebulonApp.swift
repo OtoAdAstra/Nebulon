@@ -13,7 +13,8 @@ struct NebulonApp: App {
     
     var body: some Scene {
         WindowGroup {
-            TabBarView(container: container)
+            AppRootView(container: container)
+                .preferredColorScheme(.dark)
         }
     }
 }

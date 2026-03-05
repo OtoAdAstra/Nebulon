@@ -57,7 +57,7 @@
 		548917D62F57A4A900B0FC5F /* Exceptions for "Nebulon" folder in "Nebulon" target */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
-				Info.plist,
+				Core/Config/Info.plist,
 			);
 			target = 5489174E2F54A80C00B0FC5F /* Nebulon */;
 		};
@@ -437,7 +437,7 @@
 				DEVELOPMENT_TEAM = 4J899GTP9G;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = Nebulon/Info.plist;
+				INFOPLIST_FILE = Nebulon/Core/Config/Info.plist;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.education";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -477,7 +477,7 @@
 				DEVELOPMENT_TEAM = 4J899GTP9G;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = Nebulon/Info.plist;
+				INFOPLIST_FILE = Nebulon/Core/Config/Info.plist;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.education";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;

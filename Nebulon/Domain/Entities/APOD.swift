@@ -12,6 +12,7 @@ struct APOD: Identifiable, Hashable {
     let date: String
     let explanation: String
     let mediaType: String
+    let serviceVersion: String
     let title: String
     let url: String
 

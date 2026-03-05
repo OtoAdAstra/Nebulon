@@ -29,6 +29,7 @@ struct APODDTO: Decodable {
             date: date,
             explanation: explanation,
             mediaType: mediaType,
+            serviceVersion: serviceVersion,
             title: title,
             url: url
             // serviceVersion dropped — Domain doesn't care about API versioning
