@@ -5,7 +5,7 @@
 // Driven by app needs, not API shape
 // Shared across all features that need APOD data
 
-struct APOD: Identifiable, Hashable {
+struct APOD: Identifiable, Hashable, Codable {
     // Computed — domain decides what the ID is, not the API
     var id: String { date }
 

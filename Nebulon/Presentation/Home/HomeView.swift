@@ -12,6 +12,7 @@ struct HomeView: View {
             ScrollView {
                 VStack(alignment: .leading, spacing: 20) {
                     APODCardView(viewModel: viewModel)
+                        .padding(.top, 46)
                     
                     Spacer()
                 }
