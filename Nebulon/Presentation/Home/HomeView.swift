@@ -6,20 +6,17 @@ struct HomeView: View {
     let viewModel: APODViewModel
 
     var body: some View {
-        ZStack {
-            StarfieldBackground()
-            
-            ScrollView {
-                VStack(alignment: .leading, spacing: 20) {
-                    APODCardView(viewModel: viewModel)
-                        .padding(.top, 46)
-                    
-                    Spacer()
-                }
-                .padding()
+
+        ScrollView {
+            VStack(alignment: .leading, spacing: 20) {
+                
+                APODCardView(viewModel: viewModel)
+
+                Spacer()
             }
-            
+            .padding()
         }
+        
         .task {
             await viewModel.onAppear()
         }
@@ -27,5 +24,11 @@ struct HomeView: View {
 }
 
 #Preview {
-    HomeView(viewModel: APODViewModel(fetchAPODUseCase: FetchAPODUseCase(repository: APODRepository(client: NetworkClient()))))
+    HomeView(
+        viewModel: APODViewModel(
+            fetchAPODUseCase: FetchAPODUseCase(
+                repository: APODRepository(client: NetworkClient())
+            )
+        )
+    )
 }

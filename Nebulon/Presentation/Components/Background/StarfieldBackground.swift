@@ -69,6 +69,5 @@ public struct StarfieldBackground: View {
                     }
             }
         }
-        .ignoresSafeArea()
     }
 }

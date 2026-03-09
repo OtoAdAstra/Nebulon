@@ -8,7 +8,7 @@ struct APODCardView: View {
             ZStack(alignment: .bottomLeading) {
 
                 // Media — fill the card, clipped to bounds
-                mediaView
+                MediaView(url: viewModel.apod?.url ?? "", isVideo: viewModel.apod?.isVideo ?? false)
                     .frame(width: geo.size.width, height: geo.size.height)
                     .clipped()
 
@@ -28,7 +28,7 @@ struct APODCardView: View {
                         .foregroundStyle(.white)
                         .padding(.horizontal, 10)
                         .padding(.vertical, 5)
-                        .background(.ultraThinMaterial, in: Capsule())
+                        .background(Color("LightSpace"), in: Capsule())
 
                     // Title
                     Text(viewModel.apod?.title ?? "")
@@ -47,44 +47,46 @@ struct APODCardView: View {
                         .font(.caption)
                         .foregroundStyle(.white.opacity(0.5))
                 }
-                .padding(16)
+                .padding(.vertical, 28)
+                .padding(.horizontal, 16)
             }
         }
-        .aspectRatio(0.75, contentMode: .fit)
-        .clipShape(RoundedRectangle(cornerRadius: 20))
+        .aspectRatio(0.85, contentMode: .fit)
+        .clipShape(RoundedRectangle(cornerRadius: 34))
+        .shadow(color: .white.opacity(1), radius: 0.5, x: 0, y: 0)
     }
 
     // Separate media view — handles both image and video
-    @ViewBuilder
-    private var mediaView: some View {
-        if viewModel.apod?.isVideo == true {
-            // Video — show play icon placeholder
-            ZStack {
-                Rectangle()
-                    .fill(.gray.opacity(0.2))
-
-                VStack(spacing: 12) {
-                    Image(systemName: "play.circle.fill")
-                        .font(.system(size: 64))
-                        .foregroundStyle(.white.opacity(0.7))
-
-                    Text("Video")
-                        .font(.caption)
-                        .foregroundStyle(.white.opacity(0.4))
-                }
-            }
-        } else {
-            CachedAsyncImage(
-                url: URL(string: viewModel.apod?.url ?? "")
-            ) { image in
-                image
-                    .resizable()
-                    .aspectRatio(contentMode: .fill)
-            } placeholder: {
-                Rectangle().fill(.gray.opacity(0.2))
-            }
-        }
-    }
+//    @ViewBuilder
+//    private var mediaView: some View {
+//        if viewModel.apod?.isVideo == true {
+//            // Video — show play icon placeholder
+//            ZStack {
+//                Rectangle()
+//                    .fill(.gray.opacity(0.2))
+//
+//                VStack(spacing: 12) {
+//                    Image(systemName: "play.circle.fill")
+//                        .font(.system(size: 64))
+//                        .foregroundStyle(.white.opacity(0.7))
+//
+//                    Text("Video")
+//                        .font(.caption)
+//                        .foregroundStyle(.white.opacity(0.4))
+//                }
+//            }
+//        } else {
+//            CachedAsyncImage(
+//                url: URL(string: viewModel.apod?.url ?? "")
+//            ) { image in
+//                image
+//                    .resizable()
+//                    .aspectRatio(contentMode: .fill)
+//            } placeholder: {
+//                Rectangle().fill(.gray.opacity(0.2))
+//            }
+//        }
+//    }
 }
 
 #Preview {

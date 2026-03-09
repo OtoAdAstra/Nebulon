@@ -23,9 +23,10 @@ struct TabBar: View {
         .padding(.horizontal, 16)
         .padding(.vertical, 12)
         .background {
-            // Glassmorphism background
             RoundedRectangle(cornerRadius: 30)
                 .fill(.ultraThinMaterial)
+                .opacity(0.6)
+                .blur(radius: 4)
                 .overlay {
                     RoundedRectangle(cornerRadius: 30)
                         .stroke(
@@ -37,7 +38,6 @@ struct TabBar: View {
                             lineWidth: 1
                         )
                 }
-                .shadow(color: .black.opacity(0.3), radius: 20, y: 10)
         }
         .padding(.horizontal, 24)
     }
@@ -48,26 +48,34 @@ struct TabBar: View {
                 selectedTab = tab
             }
         } label: {
-            VStack(spacing: 4) {
                 ZStack {
                     // Animated selection pill
                     if selectedTab == tab {
-                        RoundedRectangle(cornerRadius: 12)
-                            .fill(.white.opacity(0.15))
-                            .frame(width: 44, height: 32)
+                        RoundedRectangle(cornerRadius: 16)
+                            .fill(LinearGradient(
+                                colors: [
+                                    Color("LightSpace").opacity(0.6),
+                                    Color.purple.opacity(0.3)
+                                ],
+                                startPoint: .topLeading,
+                                endPoint: .bottomTrailing
+                            ))
+                            .frame(width: 58, height: 58)
                             .matchedGeometryEffect(id: "tab_selection", in: namespace)
                     }
+                    VStack(spacing: 4) {
 
                     Image(systemName: tab.icon)
-                        .font(.system(size: 18, weight: selectedTab == tab ? .bold : .regular))
-                        .foregroundStyle(selectedTab == tab ? .white : .white.opacity(0.4))
+                        .font(.system(size: 22, weight: selectedTab == tab ? .bold : .regular))
+                        .foregroundStyle(selectedTab == tab ? Color("LightCyan") : .white.opacity(0.4))
                         .scaleEffect(selectedTab == tab ? 1.1 : 1.0)
+                        
+                        Text(tab.label)
+                            .font(.system(size: 12, weight: .medium))
+                            .foregroundStyle(selectedTab == tab ? .white : .white.opacity(0.4))
                 }
                 .frame(width: 44, height: 32)
 
-                Text(tab.label)
-                    .font(.system(size: 9, weight: .medium))
-                    .foregroundStyle(selectedTab == tab ? .white : .white.opacity(0.4))
             }
         }
         .frame(maxWidth: .infinity)
