@@ -2,6 +2,7 @@ import SwiftUI
 
 struct APODCardView: View {
     let viewModel: APODViewModel
+    var heroNamespace: Namespace.ID
 
     var body: some View {
         GeometryReader { geo in
@@ -53,6 +54,7 @@ struct APODCardView: View {
         }
         .aspectRatio(0.85, contentMode: .fit)
         .clipShape(RoundedRectangle(cornerRadius: 34))
+        .matchedGeometryEffect(id: "apod_hero", in: heroNamespace)
         .shadow(color: .white.opacity(1), radius: 0.5, x: 0, y: 0)
     }
 
@@ -90,11 +92,13 @@ struct APODCardView: View {
 }
 
 #Preview {
-    HomeView(
+    @Previewable @Namespace var ns
+    APODCardView(
         viewModel: APODViewModel(
             fetchAPODUseCase: FetchAPODUseCase(
                 repository: APODRepository(client: NetworkClient())
             )
-        )
+        ),
+        heroNamespace: ns
     )
 }

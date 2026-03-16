@@ -3,32 +3,45 @@
 import SwiftUI
 
 struct HomeView: View {
-    let viewModel: APODViewModel
+    var coordinator: HomeCoordinator
+    @Namespace private var heroNamespace
 
     var body: some View {
+        ZStack {
+            if coordinator.route == .list {
+                ScrollView {
+                    VStack(alignment: .leading, spacing: 20) {
+                        APODCardView(viewModel: coordinator.apodViewModel, heroNamespace: heroNamespace)
+                            .onTapGesture {
+                                withAnimation(.spring(response: 0.5, dampingFraction: 0.85)) {
+                                    coordinator.showAPODDetail()
+                                }
+                            }
 
-        ScrollView {
-            VStack(alignment: .leading, spacing: 20) {
-                
-                APODCardView(viewModel: viewModel)
-
-                Spacer()
+                        Spacer()
+                    }
+                    .padding()
+                }
+                .task {
+                    await coordinator.apodViewModel.onAppear()
+                }
+            } else {
+                APODView(
+                    viewModel: coordinator.apodViewModel,
+                    heroNamespace: heroNamespace,
+                    onDismiss: {
+                        withAnimation(.spring(response: 0.5, dampingFraction: 0.85)) {
+                            coordinator.dismissAPODDetail()
+                        }
+                    }
+                )
             }
-            .padding()
-        }
-        
-        .task {
-            await viewModel.onAppear()
         }
     }
 }
 
 #Preview {
-    HomeView(
-        viewModel: APODViewModel(
-            fetchAPODUseCase: FetchAPODUseCase(
-                repository: APODRepository(client: NetworkClient())
-            )
-        )
-    )
+    let container = DIContainer()
+    let coordinator = AppCoordinator(container: container)
+    HomeView(coordinator: coordinator.homeCoordinator)
 }

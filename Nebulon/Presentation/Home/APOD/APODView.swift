@@ -2,6 +2,9 @@ import SwiftUI
 
 struct APODView: View {
     let viewModel: APODViewModel
+    var heroNamespace: Namespace.ID
+    var onDismiss: () -> Void
+
     @State private var isImageFullScreen = false
     @State private var isExpanded = false
 
@@ -22,6 +25,7 @@ struct APODView: View {
                             )
                         }
                         .clipped()
+                        .matchedGeometryEffect(id: "apod_hero", in: heroNamespace)
                         .overlay(alignment: .bottom) {
                             LinearGradient(
                                 colors: [.clear, Color(red: 0x0B/255, green: 0x0F/255, blue: 0x1A/255)],
@@ -36,6 +40,25 @@ struct APODView: View {
                                 isImageFullScreen = true
                             }
                         }
+
+                    // Back button
+                    VStack {
+                        HStack {
+                            Button {
+                                onDismiss()
+                            } label: {
+                                Image(systemName: "chevron.left")
+                                    .font(.system(size: 18, weight: .semibold))
+                                    .foregroundStyle(.white)
+                                    .frame(width: 36, height: 36)
+                                    .background(.ultraThinMaterial, in: Circle())
+                            }
+                            .padding(.leading, 16)
+                            .padding(.top, 54)
+                            Spacer()
+                        }
+                        Spacer()
+                    }
 
                     // Title over image
                     Text(viewModel.apod?.title ?? "")
@@ -193,11 +216,14 @@ struct DetailRow: View {
 }
 
 #Preview {
+    @Previewable @Namespace var ns
     APODView(
         viewModel: APODViewModel(
             fetchAPODUseCase: FetchAPODUseCase(
                 repository: APODRepository(client: NetworkClient())
             )
-        )
+        ),
+        heroNamespace: ns,
+        onDismiss: {}
     )
 }
