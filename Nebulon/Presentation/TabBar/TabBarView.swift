@@ -1,7 +1,7 @@
 import SwiftUI
 
 struct TabBarView: View {
-    @Bindable var coordinator: AppCoordinator
+    var coordinator: AppCoordinator
 
     var body: some View {
         ZStack(alignment: .bottom) {
@@ -13,7 +13,7 @@ struct TabBarView: View {
                 Group {
                     switch coordinator.selectedTab {
                     case .home:
-                        HomeView(viewModel: coordinator.apodViewModel)
+                        HomeView(coordinator: coordinator.homeCoordinator)
                     case .explore:
                         Text("Explore").foregroundStyle(.white)
                     case .mars:
@@ -27,8 +27,11 @@ struct TabBarView: View {
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
             }
 
-            TabBar(selectedTab: $coordinator.selectedTab)
-                .padding(.bottom, 0)
+            if !coordinator.hideTabBar {
+                TabBar(selectedTab: Bindable(coordinator).selectedTab)
+                    .padding(.bottom, 0)
+                    .transition(.move(edge: .bottom).combined(with: .opacity))
+            }
         }
     }
 }

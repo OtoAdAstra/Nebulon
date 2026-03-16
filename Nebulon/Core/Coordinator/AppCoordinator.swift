@@ -3,13 +3,26 @@ import Observation
 @Observable
 final class AppCoordinator {
 
-    // owns tab state
+    // MARK: - Tab State
+
     var selectedTab: Tabs = .home
 
-    // owns ViewModels — created once, never recreated
-    let apodViewModel: APODViewModel
+    /// Derived — delegates to the active child coordinator
+    var hideTabBar: Bool {
+        switch selectedTab {
+        case .home: return homeCoordinator.hideTabBar
+        default: return false
+        }
+    }
+
+    // MARK: - Child Coordinators
+
+    let homeCoordinator: HomeCoordinator
+
+    // MARK: - Init
 
     init(container: DIContainer) {
-        apodViewModel = container.makeAPODViewModel()
+        let apodViewModel = container.makeAPODViewModel()
+        homeCoordinator = HomeCoordinator(apodViewModel: apodViewModel)
     }
 }
