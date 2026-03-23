@@ -6,6 +6,10 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		5419CE2D2F71CBD6006A3D69 /* SkeletonUI in Frameworks */ = {isa = PBXBuildFile; productRef = 5419CE2C2F71CBD6006A3D69 /* SkeletonUI */; };
+/* End PBXBuildFile section */
+
 /* Begin PBXContainerItemProxy section */
 		5489175D2F54A80F00B0FC5F /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -89,6 +93,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5419CE2D2F71CBD6006A3D69 /* SkeletonUI in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -149,6 +154,7 @@
 			);
 			name = Nebulon;
 			packageProductDependencies = (
+				5419CE2C2F71CBD6006A3D69 /* SkeletonUI */,
 			);
 			productName = Nebulon;
 			productReference = 5489174F2F54A80C00B0FC5F /* Nebulon.app */;
@@ -226,6 +232,9 @@
 			);
 			mainGroup = 548917462F54A80C00B0FC5F;
 			minimizedProjectReferenceProxies = 1;
+			packageReferences = (
+				5419CE2B2F71CBD5006A3D69 /* XCRemoteSwiftPackageReference "SkeletonUI" */,
+			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 548917502F54A80C00B0FC5F /* Products */;
 			projectDirPath = "";
@@ -637,6 +646,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		5419CE2B2F71CBD5006A3D69 /* XCRemoteSwiftPackageReference "SkeletonUI" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/CSolanaM/SkeletonUI.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.0.2;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		5419CE2C2F71CBD6006A3D69 /* SkeletonUI */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 5419CE2B2F71CBD5006A3D69 /* XCRemoteSwiftPackageReference "SkeletonUI" */;
+			productName = SkeletonUI;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 548917472F54A80C00B0FC5F /* Project object */;
 }
