@@ -13,6 +13,7 @@ import SwiftUI
 struct MediaView: View {
     let url: String
     let isVideo: Bool
+    var onImageLoaded: (() -> Void)? = nil
 
     var body: some View {
         if isVideo {
@@ -32,7 +33,8 @@ struct MediaView: View {
             }
         } else {
             CachedAsyncImage(
-                url: URL(string: url)
+                url: URL(string: url),
+                onLoaded: onImageLoaded
             ) { image in
                 image
                     .resizable()

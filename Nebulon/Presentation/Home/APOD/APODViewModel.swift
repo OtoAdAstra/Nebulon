@@ -12,6 +12,11 @@ final class APODViewModel {
 
     private(set) var apod: APOD?
     private(set) var state: ViewState = .idle
+    var isImageLoaded: Bool = false
+
+    var isFullyLoaded: Bool {
+        apod != nil && (apod?.isVideo == true || isImageLoaded)
+    }
 
     private let fetchAPODUseCase: FetchAPODUseCase
     private static let cachedAPODKey = "cachedAPOD"

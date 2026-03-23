@@ -1,6 +1,7 @@
 // Presentation/Home/ContentView.swift
 
 import SwiftUI
+import SkeletonUI
 
 struct HomeView: View {
     var coordinator: HomeCoordinator
@@ -15,11 +16,15 @@ struct HomeView: View {
                     VStack(alignment: .leading, spacing: 20) {
                         AppNameView()
                         
-                        APODCardView(
-                            viewModel: coordinator.apodViewModel,
-                            heroNamespace: heroNamespace
-                        )
+                            APODCardView(
+                                viewModel: coordinator.apodViewModel,
+                                heroNamespace: heroNamespace
+                            )
+                        .aspectRatio(0.85, contentMode: .fit)
+                        .clipShape(RoundedRectangle(cornerRadius: 34))
+                        .animation(.easeOut(duration: 0.3), value: coordinator.apodViewModel.isFullyLoaded)
                         .onTapGesture {
+                            guard coordinator.apodViewModel.isFullyLoaded else { return }
                             withAnimation(
                                 .spring(response: 0.5, dampingFraction: 0.85)
                             ) {
