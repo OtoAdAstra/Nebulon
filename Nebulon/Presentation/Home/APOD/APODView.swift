@@ -11,7 +11,7 @@ struct APODView: View {
     private let imageHeight: CGFloat = UIScreen.main.bounds.height * 0.6
 
     var body: some View {
-        ScrollView {
+        ScrollView(.vertical, showsIndicators: false) {
             VStack(spacing: 0) {
 
                 // MARK: - Hero Image
@@ -25,6 +25,12 @@ struct APODView: View {
                             )
                         }
                         .clipped()
+                        .clipShape(
+                            .rect(
+                                topLeadingRadius: 28,
+                                topTrailingRadius: 28
+                            )
+                        )
                         .matchedGeometryEffect(id: "apod_hero", in: heroNamespace)
                         .overlay(alignment: .bottom) {
                             LinearGradient(
@@ -32,7 +38,7 @@ struct APODView: View {
                                 startPoint: .top,
                                 endPoint: .bottom
                             )
-                            .frame(height: imageHeight * 0.15)
+                            .frame(height: imageHeight * 0.1)
                         }
                         .onTapGesture {
                             guard viewModel.apod?.isVideo != true else { return }
@@ -40,25 +46,6 @@ struct APODView: View {
                                 isImageFullScreen = true
                             }
                         }
-
-                    // Back button
-                    VStack {
-                        HStack {
-                            Button {
-                                onDismiss()
-                            } label: {
-                                Image(systemName: "chevron.left")
-                                    .font(.system(size: 18, weight: .semibold))
-                                    .foregroundStyle(.white)
-                                    .frame(width: 36, height: 36)
-                                    .background(.ultraThinMaterial, in: Circle())
-                            }
-                            .padding(.leading, 16)
-                            .padding(.top, 54)
-                            Spacer()
-                        }
-                        Spacer()
-                    }
 
                     // Title over image
                     Text(viewModel.apod?.title ?? "")
@@ -153,6 +140,19 @@ struct APODView: View {
             }
         }
         .ignoresSafeArea(edges: .top)
+        .overlay(alignment: .topLeading) {
+            Button {
+                onDismiss()
+            } label: {
+                Image(systemName: "chevron.left")
+                    .font(.system(size: 22, weight: .semibold))
+                    .foregroundStyle(.white)
+                    .frame(width: 42, height: 42)
+                    .background(.ultraThinMaterial, in: Circle())
+            }
+            .padding(.leading, 16)
+            .padding(.top, 8)
+        }
         .task {
             await viewModel.onAppear()
         }
