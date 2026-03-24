@@ -14,15 +14,12 @@ final class DIContainer {
     private lazy var apodRepository: APODRepositoryProtocol = APODRepository(
         client: networkClient
     )
-
-    // MARK: - Use Cases
-    func makeFetchAPODUseCase() -> FetchAPODUseCase {
-        FetchAPODUseCase(repository: apodRepository)
-    }
+    
+    // MARK: - UseCase
+    private lazy var fetchAPODUseCase: FetchAPODUseCaseProtocol = FetchAPODUseCase(repository: apodRepository)
 
     // MARK: - ViewModels
     func makeAPODViewModel() -> APODViewModel {
-        APODViewModel(fetchAPODUseCase: makeFetchAPODUseCase())
+        APODViewModel(fetchAPODUseCase: fetchAPODUseCase)
     }
-
 }

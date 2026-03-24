@@ -1,4 +1,5 @@
 // Data/Network/DTOs/APODDTO.swift
+import Foundation
 
 // DTO = Data Transfer Object
 // Its ONLY job: match the JSON shape exactly and decode it
@@ -21,6 +22,7 @@ struct APODDTO: Decodable {
     let serviceVersion: String  // JSON: "service_version"
     let title: String
     let url: String
+    let copyright: String?      // Optional — not all APODs have a copyright holder
 
     // Converts raw DTO into clean Domain entity
     // This is the bridge between Data and Domain layers
@@ -29,9 +31,9 @@ struct APODDTO: Decodable {
             date: date,
             explanation: explanation,
             mediaType: mediaType,
-            serviceVersion: serviceVersion,
             title: title,
-            url: url
+            url: url,
+            copyright: copyright?.trimmingCharacters(in: .whitespacesAndNewlines)
             // serviceVersion dropped — Domain doesn't care about API versioning
         )
     }

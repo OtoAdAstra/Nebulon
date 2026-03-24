@@ -1,8 +1,9 @@
-// Encapsulates ONE business operation
-// Depends on protocol, not implementation
-// No networking knowledge — just orchestration
+protocol FetchAPODUseCaseProtocol {
+    func execute() async throws -> APOD
+    func execute(date: String) async throws -> APOD
+}
 
-struct FetchAPODUseCase {
+struct FetchAPODUseCase: FetchAPODUseCaseProtocol {
     private let repository: APODRepositoryProtocol
 
     init(repository: APODRepositoryProtocol) {

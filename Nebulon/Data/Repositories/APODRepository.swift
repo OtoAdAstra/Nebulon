@@ -9,15 +9,16 @@ final class APODRepository: APODRepositoryProtocol {
     }
 
     func fetchAPOD() async throws -> APOD {
-        // 1. Tell NetworkClient which endpoint to hit
-        // 2. Tell it to decode into APODDTO
-        // 3. Convert DTO → Domain entity
+        print("📡 Repository: fetching today's APOD")
         let dto: APODDTO = try await client.fetch(NASAEndpoint.apod)
+        print("📡 Repository: received DTO — \"\(dto.title)\" (\(dto.mediaType))")
         return dto.toDomain()
     }
 
     func fetchAPOD(date: String) async throws -> APOD {
+        print("📡 Repository: fetching APOD for date \(date)")
         let dto: APODDTO = try await client.fetch(NASAEndpoint.apodByDate(date: date))
+        print("📡 Repository: received DTO — \"\(dto.title)\" (\(dto.mediaType))")
         return dto.toDomain()
     }
 }

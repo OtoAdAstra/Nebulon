@@ -6,18 +6,15 @@ struct CachedAsyncImage<Content: View, Placeholder: View>: View {
     private let url: URL?
     private let content: (Image) -> Content
     private let placeholder: () -> Placeholder
-    private let onLoaded: (() -> Void)?
 
     @State private var loadedImage: UIImage? = nil
 
     init(
         url: URL?,
-        onLoaded: (() -> Void)? = nil,
         @ViewBuilder content: @escaping (Image) -> Content,
         @ViewBuilder placeholder: @escaping () -> Placeholder
     ) {
         self.url = url
-        self.onLoaded = onLoaded
         self.content = content
         self.placeholder = placeholder
     }
@@ -32,9 +29,6 @@ struct CachedAsyncImage<Content: View, Placeholder: View>: View {
         }
         .task(id: url) {
             loadedImage = await fetchImage()
-            if loadedImage != nil {
-                onLoaded?()
-            }
         }
     }
 
