@@ -25,24 +25,28 @@ struct APODView: View {
                             )
                         }
                         .clipped()
-                        .clipShape(
-                            .rect(
-                                topLeadingRadius: 28,
-                                topTrailingRadius: 28
-                            )
-                        )
-                        .matchedGeometryEffect(id: "apod_hero", in: heroNamespace)
                         .overlay(alignment: .bottom) {
                             LinearGradient(
-                                colors: [.clear, Color(red: 0x0B/255, green: 0x0F/255, blue: 0x1A/255)],
+                                colors: [
+                                    .clear,
+                                    Color(
+                                        red: 0x0B / 255,
+                                        green: 0x0F / 255,
+                                        blue: 0x1A / 255
+                                    ),
+                                ],
                                 startPoint: .top,
                                 endPoint: .bottom
                             )
                             .frame(height: imageHeight * 0.1)
                         }
                         .onTapGesture {
-                            guard viewModel.apod?.isVideo != true else { return }
-                            withAnimation(.spring(response: 0.35, dampingFraction: 0.85)) {
+                            guard viewModel.apod?.isVideo != true else {
+                                return
+                            }
+                            withAnimation(
+                                .spring(response: 0.35, dampingFraction: 0.85)
+                            ) {
                                 isImageFullScreen = true
                             }
                         }
@@ -54,6 +58,8 @@ struct APODView: View {
                         .padding(.horizontal, 20)
                         .padding(.bottom, 20)
                 }
+                .clipShape(.rect(topLeadingRadius: 28, topTrailingRadius: 28))
+                .matchedGeometryEffect(id: "apod_hero", in: heroNamespace)
 
                 // MARK: - Action Buttons
                 HStack(spacing: 12) {
@@ -62,7 +68,8 @@ struct APODView: View {
                     }
                     ActionButton(icon: "square.and.arrow.up", label: "Share") {
                     }
-                    ActionButton(icon: "arrow.down.to.line", label: "Wallpaper") {
+                    ActionButton(icon: "arrow.down.to.line", label: "Wallpaper")
+                    {
                         // wallpaper action
                     }
                 }
@@ -109,10 +116,6 @@ struct APODView: View {
                         value: viewModel.apod?.date ?? ""
                     )
 
-                    Divider()
-                        .overlay(Color.white.opacity(0.08))
-                        .padding(.vertical, 8)
-
                     DetailRow(
                         icon: "camera",
                         iconColor: Color.purple,
@@ -120,16 +123,15 @@ struct APODView: View {
                         value: viewModel.apod?.mediaType.capitalized ?? ""
                     )
 
-                    Divider()
-                        .overlay(Color.white.opacity(0.08))
-                        .padding(.vertical, 8)
+                    if let copyright = viewModel.apod?.copyright {
+                        DetailRow(
+                            icon: "c.circle",
+                            iconColor: Color.brown,
+                            label: "Copyright",
+                            value: copyright
+                        )
+                    }
 
-                    DetailRow(
-                        icon: "info.circle",
-                        iconColor: Color.green,
-                        label: "Service",
-                        value: viewModel.apod?.serviceVersion ?? ""
-                    )
                 }
                 .padding(16)
                 .frame(maxWidth: .infinity, alignment: .leading)
@@ -212,6 +214,7 @@ struct DetailRow: View {
                     .foregroundStyle(.white)
             }
         }
+        .padding(.vertical, 8)
     }
 }
 

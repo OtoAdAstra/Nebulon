@@ -12,9 +12,9 @@ struct APOD: Identifiable, Hashable, Codable {
     let date: String
     let explanation: String
     let mediaType: String
-    let serviceVersion: String
     let title: String
     let url: String
+    let copyright: String?
 
     // Domain logic lives here — not in ViewModel, not in View
     var isVideo: Bool {
