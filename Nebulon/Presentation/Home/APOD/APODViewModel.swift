@@ -25,8 +25,7 @@ final class APODViewModel {
         self.fetchAPODUseCase = fetchAPODUseCase
 
         // Restore cached APOD immediately — no loading flash
-        if let data = UserDefaults.standard.data(forKey: Self.cachedAPODKey),
-           let cached = try? JSONDecoder().decode(APOD.self, from: data) {
+        if let data = UserDefaults.standard.data(forKey: Self.cachedAPODKey), let cached = try? JSONDecoder().decode(APOD.self, from: data) {
             self.apod = cached
             print("📦 Restored cached APOD: \"\(cached.title)\" (\(cached.date))")
 
@@ -197,13 +196,4 @@ final class APODViewModel {
         }
         return nasaDateFormatter.string(from: previous)
     }
-}
-
-//MARK: - States
-enum ViewState: Equatable {
-    case idle
-    case loading
-    case dataLoaded
-    case loaded
-    case error(String)
 }
