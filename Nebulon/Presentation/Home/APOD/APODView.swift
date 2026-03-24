@@ -164,60 +164,6 @@ struct APODView: View {
     }
 }
 
-// MARK: - Supporting Views
-
-struct ActionButton: View {
-    let icon: String
-    let label: String
-    let action: () -> Void
-
-    var body: some View {
-        Button(action: action) {
-            VStack(spacing: 6) {
-                Image(systemName: icon)
-                    .font(.system(size: 16, weight: .medium))
-                Text(label)
-                    .font(.system(size: 12, weight: .medium))
-            }
-            .foregroundStyle(.white)
-            .frame(maxWidth: .infinity)
-            .padding(.vertical, 12)
-            .background(Color.white.opacity(0.08))
-            .clipShape(RoundedRectangle(cornerRadius: 14))
-        }
-    }
-}
-
-struct DetailRow: View {
-    let icon: String
-    let iconColor: Color
-    let label: String
-    let value: String
-
-    var body: some View {
-        HStack(spacing: 14) {
-            ZStack {
-                Circle()
-                    .fill(iconColor.opacity(0.2))
-                    .frame(width: 36, height: 36)
-                Image(systemName: icon)
-                    .font(.system(size: 14))
-                    .foregroundStyle(iconColor)
-            }
-
-            VStack(alignment: .leading, spacing: 2) {
-                Text(label)
-                    .font(.caption)
-                    .foregroundStyle(.white.opacity(0.5))
-                Text(value)
-                    .font(.subheadline.weight(.semibold))
-                    .foregroundStyle(.white)
-            }
-        }
-        .padding(.vertical, 8)
-    }
-}
-
 #Preview {
     @Previewable @Namespace var ns
     APODView(

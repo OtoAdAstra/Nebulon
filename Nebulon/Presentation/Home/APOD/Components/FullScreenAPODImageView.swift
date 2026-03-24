@@ -1,10 +1,3 @@
-//
-//  FullScreenAPODImageView.swift
-//  Nebulon
-//
-//  Created by Oto Sharvashidze on 11.03.26.
-//
-
 import SwiftUI
 
 struct FullScreenAPODImageView: View {
@@ -61,7 +54,6 @@ struct FullScreenAPODImageView: View {
                     .tint(.white)
             }
 
-            // Close button
             VStack {
                 HStack {
                     Spacer()
