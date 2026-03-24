@@ -1,7 +1,7 @@
 // Presentation/Home/ContentView.swift
 
-import SwiftUI
 import SkeletonUI
+import SwiftUI
 
 struct HomeView: View {
     var coordinator: HomeCoordinator
@@ -13,18 +13,26 @@ struct HomeView: View {
             // MARK: - HomeView
             if coordinator.route == .list {
                 ScrollView {
-                    VStack(alignment: .leading, spacing: 20) {
-                        AppNameView()
-                        
-                            APODCardView(
-                                viewModel: coordinator.apodViewModel,
-                                heroNamespace: heroNamespace
-                            )
-                        .aspectRatio(0.85, contentMode: .fit)
+                    VStack(spacing: 20) {
+                        APODCardView(
+                            viewModel: coordinator.apodViewModel
+                        )
+                        .skeleton(
+                            with: !coordinator.apodViewModel.isFullyLoaded,
+                            animation: .pulse(),
+                            appearance: .solid(
+                                color: .white.opacity(0.08),
+                                background: .white.opacity(0.03)
+                            ),
+                            shape: .rounded(.radius(34, style: .continuous))
+                        )
+                        .aspectRatio(0.95, contentMode: .fit)
                         .clipShape(RoundedRectangle(cornerRadius: 34))
-                        .animation(.easeOut(duration: 0.3), value: coordinator.apodViewModel.isFullyLoaded)
+                        .matchedGeometryEffect(id: "apod_hero", in: heroNamespace)
                         .onTapGesture {
-                            guard coordinator.apodViewModel.isFullyLoaded else { return }
+                            guard coordinator.apodViewModel.isFullyLoaded else {
+                                return
+                            }
                             withAnimation(
                                 .spring(response: 0.5, dampingFraction: 0.85)
                             ) {
@@ -36,24 +44,29 @@ struct HomeView: View {
                     }
                     .padding()
                 }
+                .safeAreaInset(edge: .top) {
+                    AppNameView()
+                        .frame(maxWidth: .infinity, alignment: .center)
+                        .padding()
+                }
                 .task {
                     await coordinator.apodViewModel.onAppear()
                 }
             } else {
                 // MARK: - APOD View
 
-                    APODView(
-                        viewModel: coordinator.apodViewModel,
-                        heroNamespace: heroNamespace,
-                        onDismiss: {
-                            withAnimation(
-                                .spring(response: 0.5, dampingFraction: 0.85)
-                            ) {
-                                coordinator.dismissAPODDetail()
-                            }
+                APODView(
+                    viewModel: coordinator.apodViewModel,
+                    heroNamespace: heroNamespace,
+                    onDismiss: {
+                        withAnimation(
+                            .spring(response: 0.5, dampingFraction: 0.85)
+                        ) {
+                            coordinator.dismissAPODDetail()
                         }
-                    )
-                
+                    }
+                )
+
             }
         }
 
@@ -70,7 +83,7 @@ struct AppNameView: View {
                 .padding(6)
                 .background(
                     Circle()
-                        .fill(.blue.opacity(0.15))
+                        .fill(Color("DarkSpace"))
                 )
                 .overlay(
                     Circle()
