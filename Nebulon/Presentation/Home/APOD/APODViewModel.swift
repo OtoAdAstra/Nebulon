@@ -32,8 +32,9 @@ final class APODViewModel {
 
             // Check if media is already ready
             if cached.isVideo {
-                self.state = .loaded
-                print("📦 Video type — no image preload needed")
+                // Cached APOD is a video — will re-fetch to find an image on appear
+                self.state = .dataLoaded
+                print("📦 Video type cached — will search for image APOD")
             } else if let url = URL(string: cached.url), ImagePreloader.isCached(url: url) {
                 self.state = .loaded
                 print("📦 Image cache hit — fully loaded")
@@ -49,6 +50,9 @@ final class APODViewModel {
     func onAppear() async {
         if apod == nil {
             print("🔄 onAppear: No APOD data — fetching from network")
+            await loadTodaysAPOD()
+        } else if apod?.isVideo == true {
+            print("🔄 onAppear: Cached APOD is a video — searching for image APOD")
             await loadTodaysAPOD()
         } else if shouldRefresh {
             print("🔄 onAppear: Cached APOD is stale — refreshing silently")
@@ -75,15 +79,38 @@ final class APODViewModel {
 
     private func loadTodaysAPOD() async {
         await load {
-            try await fetchAPODUseCase.execute()
+            try await fetchImageAPOD()
         }
+    }
+
+    /// Fetches today's APOD; if it's a video, walks back day-by-day until an image is found (max 10 days)
+    private func fetchImageAPOD() async throws -> APOD {
+        let result = try await fetchAPODUseCase.execute()
+        if !result.isVideo { return result }
+
+        print("⏭️ Today's APOD is a video — searching for latest image APOD")
+        return try await fetchPreviousImageAPOD(before: result.date)
+    }
+
+    private func fetchPreviousImageAPOD(before dateString: String, maxAttempts: Int = 10) async throws -> APOD {
+        var currentDate = dateString
+        for attempt in 1...maxAttempts {
+            guard let previousDate = Self.previousDateString(from: currentDate) else { break }
+            currentDate = previousDate
+
+            let result = try await fetchAPODUseCase.execute(date: previousDate)
+            print("⏭️ Attempt \(attempt): \(previousDate) → \(result.mediaType)")
+            if !result.isVideo { return result }
+        }
+        // Fallback: return the last fetched APOD even if it's a video
+        return try await fetchAPODUseCase.execute(date: currentDate)
     }
 
     /// Fetches latest APOD without showing loading state — updates only if data changed
     private func refreshAPODSilently() async {
         print("🔇 Silent refresh started")
         do {
-            let result = try await fetchAPODUseCase.execute()
+            let result = try await fetchImageAPOD()
             print("🔇 Silent refresh got: \"\(result.title)\" (\(result.date))")
 
             let isNewAPOD = result.date != apod?.date
@@ -152,11 +179,23 @@ final class APODViewModel {
         }
     }
 
-    private static func todayDateString() -> String {
+    private static let nasaDateFormatter: DateFormatter = {
         let formatter = DateFormatter()
         formatter.dateFormat = "yyyy-MM-dd"
         formatter.timeZone = TimeZone(identifier: "America/New_York") // NASA uses ET
-        return formatter.string(from: Date())
+        return formatter
+    }()
+
+    private static func todayDateString() -> String {
+        nasaDateFormatter.string(from: Date())
+    }
+
+    private static func previousDateString(from dateString: String) -> String? {
+        guard let date = nasaDateFormatter.date(from: dateString),
+              let previous = Calendar.current.date(byAdding: .day, value: -1, to: date) else {
+            return nil
+        }
+        return nasaDateFormatter.string(from: previous)
     }
 }
 
