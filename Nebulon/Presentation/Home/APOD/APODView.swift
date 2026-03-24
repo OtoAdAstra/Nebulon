@@ -155,9 +155,6 @@ struct APODView: View {
             .padding(.leading, 16)
             .padding(.top, 8)
         }
-        .task {
-            await viewModel.onAppear()
-        }
         .fullScreenCover(isPresented: $isImageFullScreen) {
             FullScreenAPODImageView(url: viewModel.apod?.url ?? "")
         }
