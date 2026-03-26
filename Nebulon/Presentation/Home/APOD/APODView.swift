@@ -63,7 +63,7 @@ struct APODView: View {
 
                 // MARK: - Action Buttons
                 HStack(spacing: 12) {
-                    ActionButton(icon: "bookmark", label: "Save") {
+                    ActionButton(icon: "document.on.document", label: "Copy") {
                         // save action
                     }
                     ActionButton(icon: "square.and.arrow.up", label: "Share") {
