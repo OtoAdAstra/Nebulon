@@ -16,18 +16,10 @@ struct TabBar: View {
         .background {
             RoundedRectangle(cornerRadius: 30)
                 .fill(.ultraThinMaterial)
-                .opacity(0.6)
-                .blur(radius: 4)
+                .blur(radius: 2)
                 .overlay {
                     RoundedRectangle(cornerRadius: 30)
-                        .stroke(
-                            LinearGradient(
-                                colors: [.white.opacity(0.3), .clear],
-                                startPoint: .topLeading,
-                                endPoint: .bottomTrailing
-                            ),
-                            lineWidth: 1
-                        )
+                        .stroke(.white.opacity(0.3), lineWidth: 0.6)
                 }
         }
         .padding(.horizontal, 24)

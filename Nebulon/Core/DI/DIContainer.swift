@@ -22,4 +22,8 @@ final class DIContainer {
     func makeAPODViewModel() -> APODViewModel {
         APODViewModel(fetchAPODUseCase: fetchAPODUseCase)
     }
+
+    func makeSolarSystemViewModel() -> SolarSystemViewModel {
+        SolarSystemViewModel()
+    }
 }

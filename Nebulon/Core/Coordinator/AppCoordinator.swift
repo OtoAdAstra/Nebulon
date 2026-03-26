@@ -22,7 +22,9 @@ final class AppCoordinator {
     // MARK: - Init
 
     init(container: DIContainer) {
-        let apodViewModel = container.makeAPODViewModel()
-        homeCoordinator = HomeCoordinator(apodViewModel: apodViewModel)
+        homeCoordinator = HomeCoordinator(
+            apodViewModel: container.makeAPODViewModel(),
+            solarSystemViewModel: container.makeSolarSystemViewModel()
+        )
     }
 }

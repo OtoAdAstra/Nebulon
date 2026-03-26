@@ -19,11 +19,13 @@ final class HomeCoordinator {
     // MARK: - ViewModels
 
     let apodViewModel: APODViewModel
+    let solarSystemViewModel: SolarSystemViewModel
 
     // MARK: - Init
 
-    init(apodViewModel: APODViewModel) {
+    init(apodViewModel: APODViewModel, solarSystemViewModel: SolarSystemViewModel) {
         self.apodViewModel = apodViewModel
+        self.solarSystemViewModel = solarSystemViewModel
     }
 
     // MARK: - Navigation Actions
