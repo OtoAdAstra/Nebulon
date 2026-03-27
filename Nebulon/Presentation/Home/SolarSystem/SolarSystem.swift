@@ -2,6 +2,7 @@ import SwiftUI
 
 struct SolarSystemView: View {
     let viewModel: SolarSystemViewModel
+    var onPlanetTapped: (Planet) -> Void
 
     var body: some View {
         VStack(alignment: .leading, spacing: 16) {
@@ -25,7 +26,7 @@ struct SolarSystemView: View {
                 HStack(spacing: 8) {
                     ForEach(viewModel.planets) { planet in
                         PlanetCardView(planet: planet) {
-                            viewModel.onPlanetTapped(planet)
+                            onPlanetTapped(planet)
                         }
                     }
                 }
@@ -36,7 +37,7 @@ struct SolarSystemView: View {
 }
 
 #Preview {
-    SolarSystemView(viewModel: SolarSystemViewModel())
+    SolarSystemView(viewModel: SolarSystemViewModel(), onPlanetTapped: { _ in })
         .padding()
         .background(.black)
 }

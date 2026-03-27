@@ -11,7 +11,8 @@ struct HomeView: View {
 
         ZStack {
             // MARK: - HomeView
-            if coordinator.route == .list {
+            switch coordinator.route {
+            case .list:
                 ScrollView {
                     VStack(spacing: 60) {
                         APODCardView(
@@ -42,7 +43,11 @@ struct HomeView: View {
                         }
 
                         // MARK: - Solar System
-                        SolarSystemView(viewModel: coordinator.solarSystemViewModel)
+                        SolarSystemView(viewModel: coordinator.solarSystemViewModel) { planet in
+                            withAnimation(.easeInOut(duration: 0.3)) {
+                                coordinator.showPlanetDetail(planet)
+                            }
+                        }
 
                         Spacer()
                     }
@@ -57,9 +62,8 @@ struct HomeView: View {
                 .task {
                     await coordinator.apodViewModel.onAppear()
                 }
-            } else {
+            case .apodDetail:
                 // MARK: - APOD View
-
                 APODView(
                     viewModel: coordinator.apodViewModel,
                     heroNamespace: heroNamespace,
@@ -72,6 +76,14 @@ struct HomeView: View {
                     }
                 )
 
+            case .planetDetail(let planet):
+                // MARK: - Planet Detail
+                PlanetDetailSheet(planet: planet) {
+                    withAnimation(.easeInOut(duration: 0.3)) {
+                        coordinator.dismissPlanetDetail()
+                    }
+                }
+                .transition(.move(edge: .trailing))
             }
         }
 

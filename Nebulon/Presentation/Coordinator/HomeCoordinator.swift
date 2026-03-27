@@ -1,4 +1,5 @@
 import Observation
+import SwiftUI
 
 @Observable
 final class HomeCoordinator {
@@ -8,6 +9,7 @@ final class HomeCoordinator {
     enum Route: Equatable {
         case list
         case apodDetail
+        case planetDetail(Planet)
     }
 
     var route: Route = .list
@@ -35,6 +37,14 @@ final class HomeCoordinator {
     }
 
     func dismissAPODDetail() {
+        route = .list
+    }
+
+    func showPlanetDetail(_ planet: Planet) {
+        route = .planetDetail(planet)
+    }
+
+    func dismissPlanetDetail() {
         route = .list
     }
 }

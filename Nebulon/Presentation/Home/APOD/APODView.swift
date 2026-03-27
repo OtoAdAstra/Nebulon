@@ -25,21 +25,17 @@ struct APODView: View {
                             )
                         }
                         .clipped()
-                        .overlay(alignment: .bottom) {
-                            LinearGradient(
-                                colors: [
-                                    .clear,
-                                    Color(
-                                        red: 0x0B / 255,
-                                        green: 0x0F / 255,
-                                        blue: 0x1A / 255
-                                    ),
-                                ],
-                                startPoint: .top,
-                                endPoint: .bottom
-                            )
-                            .frame(height: imageHeight * 0.1)
-                        }
+                        .mask(
+                            VStack(spacing: 0) {
+                                Color.white
+                                LinearGradient(
+                                    colors: [.white, .clear],
+                                    startPoint: .top,
+                                    endPoint: .bottom
+                                )
+                                .frame(height: imageHeight * 0.1)
+                            }
+                        )
                         .onTapGesture {
                             guard viewModel.apod?.isVideo != true else {
                                 return
