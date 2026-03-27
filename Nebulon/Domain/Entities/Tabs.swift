@@ -1,5 +1,3 @@
-// Presentation/TabBar/CosmosTab.swift
-
 enum Tabs: CaseIterable {
     case home
     case explore
