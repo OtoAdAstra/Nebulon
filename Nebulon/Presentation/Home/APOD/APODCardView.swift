@@ -52,8 +52,9 @@ struct APODCardView: View {
                 .padding(.vertical, 28)
                 .padding(.horizontal, 16)
             }
-            .shadow(color: .white.opacity(1), radius: 0.5, x: 0, y: 0)
+            .shadow(color: .black.opacity(0.4), radius: 0.5, x: 0, y: 0)
         }
+        
     }
 }
 
