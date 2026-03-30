@@ -89,9 +89,3 @@ struct HomeView: View {
 
     }
 }
-
-#Preview {
-    let container = DIContainer()
-    let coordinator = AppCoordinator(container: container)
-    HomeView(coordinator: coordinator.homeCoordinator)
-}
