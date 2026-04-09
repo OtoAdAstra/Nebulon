@@ -46,7 +46,7 @@ struct PlanetDetailView: View {
     var onDismiss: (() -> Void)? = nil
 
     var body: some View {
-        ScrollView {
+        ScrollView(showsIndicators: false) {
             VStack(spacing: 32) {
                 // Back button
                 if let onDismiss {

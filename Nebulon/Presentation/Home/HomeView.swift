@@ -13,7 +13,7 @@ struct HomeView: View {
             // MARK: - HomeView
             switch coordinator.route {
             case .list:
-                ScrollView {
+                ScrollView(showsIndicators: false) {
                     VStack(spacing: 60) {
                         APODCardView(
                             viewModel: coordinator.apodViewModel
