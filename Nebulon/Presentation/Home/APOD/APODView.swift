@@ -138,15 +138,16 @@ struct APODView: View {
             }
         }
         .ignoresSafeArea(edges: .top)
-        .overlay(alignment: .topLeading) {
+        .overlay(alignment: .topTrailing) {
             Button {
                 onDismiss()
             } label: {
-                Image(systemName: "chevron.left")
+                Image(systemName: "xmark")
                     .font(.system(size: 22, weight: .semibold))
                     .foregroundStyle(.white)
                     .frame(width: 42, height: 42)
                     .background(.ultraThinMaterial, in: Circle())
+                    .padding()
             }
             .padding(.leading, 16)
             .padding(.top, 8)
