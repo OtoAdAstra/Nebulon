@@ -9,33 +9,44 @@ struct PlanetDetailSheet: View {
     @State private var dragOffset: CGFloat = 0
 
     var body: some View {
-        PlanetDetailView(planet: planet, onDismiss: onDismiss)
-            .offset(x: dragOffset)
-            .gesture(
-                DragGesture()
-                    .onChanged { value in
-                        // Only allow dragging to the right
-                        if value.translation.width > 0 {
-                            dragOffset = value.translation.width
-                        }
-                    }
-                    .onEnded { value in
-                        if value.translation.width > 100 || value.velocity.width > 500 {
-                            // Dismiss — animate off screen then call dismiss
-                            withAnimation(.easeOut(duration: 0.25)) {
-                                dragOffset = UIScreen.main.bounds.width
+        let screenWidth = UIScreen.main.bounds.width
+        let progress = min(max(dragOffset / screenWidth, 0), 1.0)
+
+        GeometryReader { geo in
+            ZStack(alignment: .leading) {
+
+                PlanetDetailView(planet: planet, onDismiss: onDismiss)
+                    .offset(x: dragOffset)
+
+                // Invisible edge drag handle on the left
+                Color.clear
+                    .frame(width: 30)
+                    .contentShape(Rectangle())
+                    .gesture(
+                        DragGesture(minimumDistance: 5)
+                            .onChanged { value in
+                                let translation = value.translation.width
+                                if translation > 0 {
+                                    dragOffset = translation
+                                }
                             }
-                            DispatchQueue.main.asyncAfter(deadline: .now() + 0.25) {
-                                onDismiss()
+                            .onEnded { value in
+                                if value.translation.width > 100 || value.velocity.width > 500 {
+                                    withAnimation(.easeOut(duration: 0.25)) {
+                                        dragOffset = screenWidth
+                                    }
+                                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.25) {
+                                        onDismiss()
+                                    }
+                                } else {
+                                    withAnimation(.spring(response: 0.3, dampingFraction: 0.8)) {
+                                        dragOffset = 0
+                                    }
+                                }
                             }
-                        } else {
-                            // Snap back
-                            withAnimation(.spring(response: 0.3, dampingFraction: 0.8)) {
-                                dragOffset = 0
-                            }
-                        }
-                    }
-            )
+                    )
+            }
+        }
     }
 }
 
