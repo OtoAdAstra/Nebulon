@@ -49,6 +49,9 @@ struct HomeView: View {
                             }
                         }
 
+                        // MARK: - News
+                        NewsView()
+
                         Spacer()
                     }
                     .padding(.vertical)
