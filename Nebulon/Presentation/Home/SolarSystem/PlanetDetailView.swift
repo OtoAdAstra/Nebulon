@@ -51,37 +51,16 @@ struct PlanetDetailSheet: View {
 // MARK: - Planet Detail View
 struct PlanetDetailView: View {
     let planet: Planet
-    var onDismiss: (() -> Void)? = nil
+    var onDismiss: () -> Void
 
     var body: some View {
         ScrollView(showsIndicators: false) {
             VStack(spacing: 32) {
-                // Back button
-                if let onDismiss {
-                    HStack {
-                        Button {
-                            withAnimation(.easeInOut(duration: 0.3)) {
-                                onDismiss()
-                            }
-                        } label: {
-                            HStack(spacing: 4) {
-                                Image(systemName: "chevron.left")
-                                    .fontWeight(.semibold)
-                                Text("Back")
-                            }
-                            .foregroundStyle(.white.opacity(0.8))
-                        }
-                        Spacer()
-                    }
-                    .padding(.horizontal, 24)
-                    .padding(.top, 8)
-                }
-
                 // Planet 3D model
                 Planet3DView(planet: planet)
                     .frame(maxWidth: .infinity)
                     .frame(height: 380)
-                    .padding(.top, onDismiss == nil ? 24 : 0)
+                    .padding(.top, 24)
 
                 // Name and subtitle
                 VStack(spacing: 4) {
@@ -114,26 +93,17 @@ struct PlanetDetailView: View {
                 Spacer(minLength: 40)
             }
         }
-    }
-}
-
-// MARK: - Stat Card
-private struct StatCard: View {
-    let title: String
-    let value: String
-
-    var body: some View {
-        VStack(alignment: .leading, spacing: 6) {
-            Text(title)
-                .font(.caption)
-                .foregroundStyle(.white.opacity(0.45))
-            Text(value)
-                .font(.system(.body, design: .rounded, weight: .semibold))
-                .foregroundStyle(.white)
+        .overlay(alignment: .topLeading) {
+            Button {
+                onDismiss()
+            } label: {
+                Image(systemName: "chevron.left")
+                    .font(.system(size: 22, weight: .semibold))
+                    .foregroundStyle(.white)
+                    .frame(width: 42, height: 42)
+                    .background(.ultraThinMaterial, in: Circle())
+                    .padding()
+            }
         }
-        .frame(maxWidth: .infinity, alignment: .leading)
-        .padding()
-        .background(.white.opacity(0.06))
-        .clipShape(RoundedRectangle(cornerRadius: 14))
     }
 }
