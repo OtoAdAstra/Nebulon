@@ -1,7 +1,6 @@
 import SwiftUI
 
 // MARK: - Interactive Sheet Wrapper
-
 struct PlanetDetailSheet: View {
     let planet: Planet
     let onDismiss: () -> Void
@@ -10,7 +9,6 @@ struct PlanetDetailSheet: View {
 
     var body: some View {
         let screenWidth = UIScreen.main.bounds.width
-        let progress = min(max(dragOffset / screenWidth, 0), 1.0)
 
         GeometryReader { geo in
             ZStack(alignment: .leading) {
@@ -51,7 +49,6 @@ struct PlanetDetailSheet: View {
 }
 
 // MARK: - Planet Detail View
-
 struct PlanetDetailView: View {
     let planet: Planet
     var onDismiss: (() -> Void)? = nil
@@ -80,26 +77,11 @@ struct PlanetDetailView: View {
                     .padding(.top, 8)
                 }
 
-                // Planet visual
-                ZStack {
-                    Circle()
-                        .fill(
-                            RadialGradient(
-                                colors: [
-                                    planet.color.opacity(0.5),
-                                    planet.color.opacity(0.15),
-                                    .clear
-                                ],
-                                center: .center,
-                                startRadius: 0,
-                                endRadius: 140
-                            )
-                        )
-                        .frame(width: 280, height: 280)
-
-                    PlanetVisual(planet: planet)
-                }
-                .padding(.top, onDismiss == nil ? 24 : 0)
+                // Planet 3D model
+                Planet3DView(planet: planet)
+                    .frame(maxWidth: .infinity)
+                    .frame(height: 380)
+                    .padding(.top, onDismiss == nil ? 24 : 0)
 
                 // Name and subtitle
                 VStack(spacing: 4) {
@@ -135,69 +117,7 @@ struct PlanetDetailView: View {
     }
 }
 
-// MARK: - Planet Visual
-
-private struct PlanetVisual: View {
-    let planet: Planet
-    private let radius: CGFloat = 80
-
-    var body: some View {
-        ZStack {
-            // Planet sphere
-            Circle()
-                .fill(planet.color)
-                .frame(width: radius * 2, height: radius * 2)
-                .overlay {
-                    Circle()
-                        .fill(
-                            RadialGradient(
-                                colors: [
-                                    .white.opacity(0.5),
-                                    .white.opacity(0.1),
-                                    .clear
-                                ],
-                                center: UnitPoint(x: 0.3, y: 0.25),
-                                startRadius: 0,
-                                endRadius: radius * 0.9
-                            )
-                        )
-                }
-                .overlay {
-                    Circle()
-                        .fill(
-                            LinearGradient(
-                                colors: [.clear, .black.opacity(0.5)],
-                                startPoint: UnitPoint(x: 0.3, y: 0.0),
-                                endPoint: UnitPoint(x: 1.0, y: 1.0)
-                            )
-                        )
-                }
-                .shadow(color: planet.color.opacity(0.6), radius: 16, x: 0, y: 4)
-
-            // Ring
-            if let ringColor = planet.ringColor {
-                Ellipse()
-                    .strokeBorder(
-                        LinearGradient(
-                            colors: [
-                                ringColor.opacity(0.6),
-                                ringColor.opacity(0.2),
-                                ringColor.opacity(0.5),
-                            ],
-                            startPoint: .leading,
-                            endPoint: .trailing
-                        ),
-                        lineWidth: 4
-                    )
-                    .frame(width: radius * 3.2, height: radius * 0.9)
-                    .rotationEffect(.degrees(-20))
-            }
-        }
-    }
-}
-
 // MARK: - Stat Card
-
 private struct StatCard: View {
     let title: String
     let value: String
@@ -215,12 +135,5 @@ private struct StatCard: View {
         .padding()
         .background(.white.opacity(0.06))
         .clipShape(RoundedRectangle(cornerRadius: 14))
-    }
-}
-
-#Preview {
-    ZStack {
-        Color.black.ignoresSafeArea()
-        PlanetDetailView(planet: Planet.allPlanets[4], onDismiss: {})
     }
 }
