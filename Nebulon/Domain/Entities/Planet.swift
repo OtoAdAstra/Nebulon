@@ -59,7 +59,7 @@ struct Planet: Identifiable, Hashable {
                description: "Saturn is the sixth planet from the Sun, famous for its stunning ring system made of ice and rock. Despite being the second-largest planet, it is the least dense — it would float if placed in a large enough body of water.",
                diameter: "120,536", distanceFromSun: "1,433.5", dayLength: "10.7 hours", yearLength: "29.4 years",
                moons: 146, temperature: "-140°C"),
-        Planet(id: "uranus", name: "Uranus", subtitle: "Ice Giant",
+        Planet(id: "uranus", name: "Uranus", subtitle: "Is Awesome",
                color: Color(red: 0.55, green: 0.8, blue: 0.85), ringColor: Color(red: 0.65, green: 0.85, blue: 0.9),
                size: 0.7, orbitIndex: 6,
                description: "Uranus is the seventh planet from the Sun and rotates on its side with an axial tilt of about 98 degrees. This ice giant has a blue-green color from methane in its atmosphere and a faint ring system.",
