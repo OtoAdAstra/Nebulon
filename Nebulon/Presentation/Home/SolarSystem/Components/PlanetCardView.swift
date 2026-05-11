@@ -4,39 +4,44 @@ struct PlanetCardView: View {
     let planet: Planet
     let onTap: () -> Void
 
-    private let cardSize: CGFloat = 120
+    private let cardSize: CGFloat = 100
+    
+    private var planetRadius: CGFloat {
+        let minRadius: CGFloat = 16
+        let maxRadius: CGFloat = 36
+        return minRadius + (maxRadius - minRadius) * planet.size
+    }
 
     var body: some View {
         Button(action: onTap) {
-            VStack(spacing: 12) {
+            VStack(spacing: 0) {
                 ZStack {
-                    // Ambient glow behind the planet
                     Circle()
                         .fill(
                             RadialGradient(
                                 colors: [
                                     planet.color.opacity(0.4),
                                     planet.color.opacity(0.1),
-                                    .clear
+                                    .clear,
                                 ],
                                 center: .center,
                                 startRadius: 0,
                                 endRadius: planetRadius * 1.5
                             )
                         )
-                        .frame(width: planetRadius * 3, height: planetRadius * 3)
+                        .frame(
+                            width: planetRadius * 3,
+                            height: planetRadius * 3
+                        )
 
-                    // Planet sphere
                     PlanetSphere(planet: planet, radius: planetRadius)
 
-                    // Ring overlay (Saturn, Uranus)
                     if let ringColor = planet.ringColor {
                         PlanetRing(color: ringColor, radius: planetRadius)
                     }
                 }
                 .frame(width: cardSize, height: cardSize)
 
-                // Label
                 VStack(spacing: 2) {
                     Text(planet.name)
                         .font(.system(size: 13, weight: .semibold))
@@ -45,16 +50,11 @@ struct PlanetCardView: View {
                         .font(.system(size: 10))
                         .foregroundStyle(.white.opacity(0.45))
                 }
+                .padding(.bottom)
             }
             .frame(width: cardSize)
         }
         .buttonStyle(.plain)
-    }
-
-    private var planetRadius: CGFloat {
-        let minRadius: CGFloat = 16
-        let maxRadius: CGFloat = 36
-        return minRadius + (maxRadius - minRadius) * planet.size
     }
 }
 
@@ -76,7 +76,7 @@ private struct PlanetSphere: View {
                             colors: [
                                 .white.opacity(0.5),
                                 .white.opacity(0.1),
-                                .clear
+                                .clear,
                             ],
                             center: UnitPoint(x: 0.3, y: 0.25),
                             startRadius: 0,

@@ -7,15 +7,10 @@ struct SolarSystemView: View {
     var body: some View {
         VStack(alignment: .leading, spacing: 16) {
 
-            // Section header
             HStack {
                 VStack(alignment: .leading, spacing: 2) {
                     Text("Solar System")
-                        .font(.title3.bold())
-                        .foregroundStyle(.white)
-                    Text("Explore the planets")
-                        .font(.caption)
-                        .foregroundStyle(.white.opacity(0.45))
+                        .header()
                 }
                 Spacer()
             }

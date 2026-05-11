@@ -39,25 +39,15 @@ private struct StarfieldCanvas: View {
     }
 }
 
-// MARK: - Public Background View
-public struct StarfieldBackground: View {
+// MARK: - Background View
+struct StarfieldBackground: View {
 
     @State private var vm = StarfieldViewModel()
     @State private var previousTime: TimeInterval = 0
 
-    public init() {}
-
-    public var body: some View {
+    var body: some View {
         ZStack {
-            LinearGradient(
-                stops: [
-                    .init(color: Color(red: 0x0B/255, green: 0x0F/255, blue: 0x1A/255), location: 0),
-                    .init(color: Color(red: 0x0B/255, green: 0x0F/255, blue: 0x1A/255), location: 0.5),
-                    .init(color: Color(red: 0x0B/255, green: 0x0F/255, blue: 0x1A/255), location: 1),
-                ],
-                startPoint: .top,
-                endPoint: .bottom
-            )
+            Color(red: 0x06/255, green: 0x0B/255, blue: 0x18/255)
             
             TimelineView(.animation) { timeline in
                 let time = timeline.date.timeIntervalSinceReferenceDate

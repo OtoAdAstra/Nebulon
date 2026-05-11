@@ -54,7 +54,7 @@ struct HomeView: View {
 
                         Spacer()
                     }
-                    .padding(.vertical)
+                    .padding(.vertical, 6)
                     .padding(.bottom, 56)
                 }
                 .safeAreaInset(edge: .top) {
