@@ -14,17 +14,14 @@ struct TabBarView: View {
                 case .home:
                     HomeView(coordinator: coordinator.homeCoordinator)
 
-                case .explore:
-                    Text("Explore").foregroundStyle(.white)
+                case .search:
+                    Text("search").foregroundStyle(.white)
 
                 case .mars:
                     Text("Mars").foregroundStyle(.white)
 
                 case .neo:
                     Text("NEOs").foregroundStyle(.white)
-
-                case .ar:
-                    Text("AR").foregroundStyle(.white)
                 }
             }
             .frame(maxWidth: .infinity, maxHeight: .infinity)
