@@ -5,26 +5,18 @@ struct APODCardView: View {
 
     var body: some View {
         GeometryReader { geo in
-
-            // MARK: - Card View
             ZStack(alignment: .bottomLeading) {
-
-                // Media — fill the card, clipped to bounds
                 MediaView(url: viewModel.apod?.url ?? "", isVideo: viewModel.apod?.isVideo ?? false)
-                .frame(width: geo.size.width, height: geo.size.height)
-                .clipped()
+                    .frame(width: geo.size.width, height: geo.size.height)
+                    .clipped()
 
-                // Gradient
                 LinearGradient(
-                    colors: [.clear, .clear, .black.opacity(0.9)],
+                    colors: [.clear, .clear, .black.opacity(0.7)],
                     startPoint: .top,
                     endPoint: .bottom
                 )
 
-                // Text content
                 VStack(alignment: .leading, spacing: 8) {
-
-                    // Pill
                     Text("Astronomy Picture of the Day")
                         .font(.system(size: 11, weight: .semibold))
                         .foregroundStyle(.white)
@@ -32,29 +24,25 @@ struct APODCardView: View {
                         .padding(.vertical, 5)
                         .background(Color("LightSpace"), in: Capsule())
 
-                    // Title
                     Text(viewModel.apod?.title ?? "")
                         .font(.title2.bold())
                         .foregroundStyle(.white)
                         .lineLimit(2)
 
-                    // Explanation
                     Text(viewModel.apod?.explanation ?? "")
                         .font(.subheadline)
                         .foregroundStyle(.white.opacity(0.75))
                         .lineLimit(2)
 
-                    // Date
                     Text(viewModel.apod?.date ?? "")
                         .font(.caption)
-                        .foregroundStyle(.white.opacity(0.5))
+                        .foregroundStyle(.white.opacity(Design.tertiaryTextOpacity))
                 }
-                .padding(.vertical, 28)
-                .padding(.horizontal, 16)
+                .padding(.vertical, Design.sectionPadding)
+                .padding(.horizontal, Design.cardRadius)
             }
             .shadow(color: .black.opacity(0.4), radius: 0.5, x: 0, y: 0)
         }
-        
     }
 }
 

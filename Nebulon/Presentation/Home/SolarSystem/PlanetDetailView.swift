@@ -1,6 +1,7 @@
 import SwiftUI
 
 // MARK: - Interactive Sheet Wrapper
+
 struct PlanetDetailSheet: View {
     let planet: Planet
     let onDismiss: () -> Void
@@ -12,20 +13,17 @@ struct PlanetDetailSheet: View {
 
         GeometryReader { geo in
             ZStack(alignment: .leading) {
-
                 PlanetDetailView(planet: planet, onDismiss: onDismiss)
                     .offset(x: dragOffset)
 
-                // Invisible edge drag handle on the left
                 Color.clear
                     .frame(width: 30)
                     .contentShape(Rectangle())
                     .gesture(
                         DragGesture(minimumDistance: 5)
                             .onChanged { value in
-                                let translation = value.translation.width
-                                if translation > 0 {
-                                    dragOffset = translation
+                                if value.translation.width > 0 {
+                                    dragOffset = value.translation.width
                                 }
                             }
                             .onEnded { value in
@@ -49,6 +47,7 @@ struct PlanetDetailSheet: View {
 }
 
 // MARK: - Planet Detail View
+
 struct PlanetDetailView: View {
     let planet: Planet
     var onDismiss: () -> Void
@@ -56,31 +55,27 @@ struct PlanetDetailView: View {
     var body: some View {
         ScrollView(showsIndicators: false) {
             VStack(spacing: 32) {
-                // Planet 3D model
                 Planet3DView(planet: planet)
                     .frame(maxWidth: .infinity)
-                    .frame(height: 380)
+                    .frame(height: Design.planet3DHeight)
                     .padding(.top, 24)
 
-                // Name and subtitle
                 VStack(spacing: 4) {
                     Text(planet.name)
                         .font(.largeTitle.bold())
                         .foregroundStyle(.white)
                     Text(planet.subtitle)
                         .font(.subheadline)
-                        .foregroundStyle(.white.opacity(0.5))
+                        .foregroundStyle(.white.opacity(Design.tertiaryTextOpacity))
                 }
 
-                // Description
                 Text(planet.description)
                     .font(.body)
                     .foregroundStyle(.white.opacity(0.8))
                     .multilineTextAlignment(.leading)
                     .padding(.horizontal, 24)
 
-                // Stats grid
-                LazyVGrid(columns: [GridItem(.flexible()), GridItem(.flexible())], spacing: 16) {
+                LazyVGrid(columns: [GridItem(.flexible()), GridItem(.flexible())], spacing: Design.cardRadius) {
                     StatCard(title: "Diameter", value: "\(planet.diameter) km")
                     StatCard(title: "Distance from Sun", value: "\(planet.distanceFromSun)M km")
                     StatCard(title: "Day Length", value: planet.dayLength)
@@ -94,16 +89,7 @@ struct PlanetDetailView: View {
             }
         }
         .overlay(alignment: .topLeading) {
-            Button {
-                onDismiss()
-            } label: {
-                Image(systemName: "chevron.left")
-                    .font(.system(size: 22, weight: .semibold))
-                    .foregroundStyle(.white)
-                    .frame(width: 42, height: 42)
-                    .background(.ultraThinMaterial, in: Circle())
-                    .padding()
-            }
+            DismissButton("chevron.left") { onDismiss() }
         }
     }
 }

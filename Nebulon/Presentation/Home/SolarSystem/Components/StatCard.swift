@@ -8,7 +8,7 @@ struct StatCard: View {
         VStack(alignment: .leading, spacing: 6) {
             Text(title)
                 .font(.caption)
-                .foregroundStyle(.white.opacity(0.45))
+                .foregroundStyle(.white.opacity(Design.secondaryTextOpacity))
             Text(value)
                 .font(.system(.body, design: .rounded, weight: .semibold))
                 .foregroundStyle(.white)

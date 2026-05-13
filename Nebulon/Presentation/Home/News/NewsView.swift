@@ -4,14 +4,7 @@ import SwiftUI
 struct NewsView: View {
     var body: some View {
         VStack(alignment: .leading, spacing: 24) {
-            HStack {
-                VStack(alignment: .leading, spacing: 2) {
-                    Text("News")
-                        .header()
-                }
-                Spacer()
-            }
-            .padding(.horizontal, 28)
+            SectionHeader(title: "News")
 
             VStack(spacing: 0) {
                 NewsRow(
@@ -32,13 +25,7 @@ struct NewsView: View {
                     url: "https://www.nasa.gov/news/"
                 )
             }
-            .background(.white.opacity(0.04))
-            .clipShape(RoundedRectangle(cornerRadius: 16))
-            .overlay(
-                RoundedRectangle(cornerRadius: 16)
-                    .stroke(.white.opacity(0.08), lineWidth: 0.5)
-            )
-            .padding(.horizontal, 20)
+            .materialCard()
         }
     }
 }
@@ -54,7 +41,7 @@ struct NewsRow: View {
         Button {
             showSafari = true
         } label: {
-            HStack(spacing: 12) {
+            HStack(spacing: Design.itemSpacing) {
                 Image(systemName: icon)
                     .font(.system(size: 14, weight: .medium))
                     .foregroundStyle(.white.opacity(0.7))

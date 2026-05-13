@@ -4,11 +4,9 @@ struct PlanetCardView: View {
     let planet: Planet
     let onTap: () -> Void
 
-    private let cardSize: CGFloat = 100
-    
     private var planetRadius: CGFloat {
-        let minRadius: CGFloat = 16
-        let maxRadius: CGFloat = 36
+        let minRadius: CGFloat = 22
+        let maxRadius: CGFloat = 42
         return minRadius + (maxRadius - minRadius) * planet.size
     }
 
@@ -16,31 +14,13 @@ struct PlanetCardView: View {
         Button(action: onTap) {
             VStack(spacing: 0) {
                 ZStack {
-                    Circle()
-                        .fill(
-                            RadialGradient(
-                                colors: [
-                                    planet.color.opacity(0.4),
-                                    planet.color.opacity(0.1),
-                                    .clear,
-                                ],
-                                center: .center,
-                                startRadius: 0,
-                                endRadius: planetRadius * 1.5
-                            )
-                        )
-                        .frame(
-                            width: planetRadius * 3,
-                            height: planetRadius * 3
-                        )
-
                     PlanetSphere(planet: planet, radius: planetRadius)
 
                     if let ringColor = planet.ringColor {
                         PlanetRing(color: ringColor, radius: planetRadius)
                     }
                 }
-                .frame(width: cardSize, height: cardSize)
+                .frame(width: Design.planetCardSize, height: Design.planetCardSize)
 
                 VStack(spacing: 2) {
                     Text(planet.name)
@@ -48,11 +28,12 @@ struct PlanetCardView: View {
                         .foregroundStyle(.white)
                     Text(planet.subtitle)
                         .font(.system(size: 10))
-                        .foregroundStyle(.white.opacity(0.45))
+                        .foregroundStyle(.white.opacity(Design.secondaryTextOpacity))
                 }
                 .padding(.bottom)
             }
-            .frame(width: cardSize)
+            .frame(width: Design.planetCardSize)
+            .materialCard(cornerRadius: Design.planetCardRadius)
         }
         .buttonStyle(.plain)
     }
@@ -67,17 +48,13 @@ private struct PlanetSphere: View {
     var body: some View {
         Circle()
             .fill(planet.color)
+            .saturation(1.4)
             .frame(width: radius * 2, height: radius * 2)
             .overlay {
-                // Specular highlight — top-left light source
                 Circle()
                     .fill(
                         RadialGradient(
-                            colors: [
-                                .white.opacity(0.5),
-                                .white.opacity(0.1),
-                                .clear,
-                            ],
+                            colors: [.white.opacity(0.5), .white.opacity(0.1), .clear],
                             center: UnitPoint(x: 0.3, y: 0.25),
                             startRadius: 0,
                             endRadius: radius * 0.9
@@ -85,7 +62,6 @@ private struct PlanetSphere: View {
                     )
             }
             .overlay {
-                // Shadow terminator — dark side
                 Circle()
                     .fill(
                         LinearGradient(
@@ -96,7 +72,6 @@ private struct PlanetSphere: View {
                     )
             }
             .overlay {
-                // Atmospheric rim light
                 Circle()
                     .strokeBorder(
                         AngularGradient(
@@ -114,7 +89,6 @@ private struct PlanetSphere: View {
                         lineWidth: 1.5
                     )
             }
-            .shadow(color: planet.color.opacity(0.6), radius: 8, x: 0, y: 2)
     }
 }
 
@@ -128,11 +102,7 @@ private struct PlanetRing: View {
         Ellipse()
             .strokeBorder(
                 LinearGradient(
-                    colors: [
-                        color.opacity(0.6),
-                        color.opacity(0.2),
-                        color.opacity(0.5),
-                    ],
+                    colors: [color.opacity(0.6), color.opacity(0.2), color.opacity(0.5)],
                     startPoint: .leading,
                     endPoint: .trailing
                 ),
