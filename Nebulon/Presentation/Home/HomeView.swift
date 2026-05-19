@@ -66,7 +66,7 @@ struct HomeView: View {
                 )
 
             case .planetDetail(let planet):
-                PlanetDetailSheet(planet: planet) {
+                PlanetDetailView(planet: planet) {
                     withAnimation(.easeInOut(duration: 0.3)) {
                         coordinator.dismissPlanetDetail()
                     }
