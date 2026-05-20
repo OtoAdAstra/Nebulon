@@ -7,11 +7,18 @@ struct SearchView: View {
         ZStack {
             switch coordinator.route {
                 case .list:
-                    ScrollView {
-                        VStack {
-                            Text("123")
-                        }
-                    }
+                    SearchListView()
+            }
+        }
+    }
+}
+
+private struct SearchListView: View {
+
+    var body: some View {
+        ScrollView {
+            VStack {
+
             }
         }
     }
