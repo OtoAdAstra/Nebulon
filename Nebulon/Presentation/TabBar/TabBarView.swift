@@ -11,17 +11,20 @@ struct TabBarView: View {
 
             Group {
                 switch coordinator.selectedTab {
-                case .home:
-                    HomeView(coordinator: coordinator.homeCoordinator)
+                    case .home:
+                        HomeView(coordinator: coordinator.homeCoordinator)
 
-                case .search:
-                        SearchView(coordinator: coordinator.searchCoordinator)
+                    case .search:
+                            SearchView(coordinator: coordinator.searchCoordinator)
 
-                case .mars:
-                    Text("Mars").foregroundStyle(.white)
+                    case .view:
+                        Text("Mars").foregroundStyle(.white)
 
-                case .neo:
-                    Text("NEOs").foregroundStyle(.white)
+                    case .ai:
+                        Text("NEOs").foregroundStyle(.white)
+                
+                    case .profile:
+                        Text("Profile")
                 }
             }
             .frame(maxWidth: .infinity, maxHeight: .infinity)

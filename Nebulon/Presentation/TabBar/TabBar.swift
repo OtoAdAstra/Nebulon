@@ -22,7 +22,7 @@ struct TabBar: View {
                         .stroke(.white.opacity(0.2), lineWidth: 0.3)
                 }
         }
-        .padding(.horizontal, 24)
+        .padding(.horizontal, 14)
     }
 
     private func tabButton(_ tab: Tabs) -> some View {
@@ -52,6 +52,7 @@ struct TabBar: View {
                     Text(tab.label)
                         .font(.system(size: 12, weight: .medium))
                         .foregroundStyle(selectedTab == tab ? .white : .white.opacity(0.4))
+                        .fixedSize(horizontal: true, vertical: false)
                 }
                 .frame(width: 44, height: 32)
             }
