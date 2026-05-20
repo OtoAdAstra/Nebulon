@@ -42,21 +42,29 @@ private struct StarfieldCanvas: View {
 // MARK: - Background View
 struct StarfieldBackground: View {
 
+    @Environment(\.scenePhase) private var scenePhase
     @State private var vm = StarfieldViewModel()
     @State private var previousTime: TimeInterval = 0
+
+    private let maxDelta: TimeInterval = 1.0 / 30.0
 
     var body: some View {
         ZStack {
             Color(red: 0x06/255, green: 0x0B/255, blue: 0x18/255)
-            
+
             TimelineView(.animation) { timeline in
                 let time = timeline.date.timeIntervalSinceReferenceDate
                 StarfieldCanvas(vm: vm, time: time)
                     .onChange(of: time) { _, new in
-                        let delta = previousTime == 0 ? 0 : new - previousTime
+                        let rawDelta = previousTime == 0 ? 0 : new - previousTime
                         previousTime = new
-                        vm.tick(delta: delta)
+                        vm.tick(delta: min(rawDelta, maxDelta))
                     }
+            }
+        }
+        .onChange(of: scenePhase) { _, phase in
+            if phase == .active {
+                previousTime = 0
             }
         }
     }
