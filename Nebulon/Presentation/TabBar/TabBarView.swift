@@ -15,7 +15,7 @@ struct TabBarView: View {
                     HomeView(coordinator: coordinator.homeCoordinator)
 
                 case .search:
-                    Text("search").foregroundStyle(.white)
+                        SearchView(coordinator: coordinator.searchCoordinator)
 
                 case .mars:
                     Text("Mars").foregroundStyle(.white)

@@ -10,7 +10,8 @@ final class AppCoordinator {
     /// Derived — delegates to the active child coordinator
     var hideTabBar: Bool {
         switch selectedTab {
-        case .home: return homeCoordinator.hideTabBar
+            case .home: return homeCoordinator.hideTabBar
+            case .search: return searchCoordinator.hideTabBar
         default: return false
         }
     }
@@ -18,6 +19,7 @@ final class AppCoordinator {
     // MARK: - Child Coordinators
 
     let homeCoordinator: HomeCoordinator
+    let searchCoordinator: SearchCoordinator
 
     // MARK: - Init
 
@@ -25,6 +27,9 @@ final class AppCoordinator {
         homeCoordinator = HomeCoordinator(
             apodViewModel: container.makeAPODViewModel(),
             solarSystemViewModel: container.makeSolarSystemViewModel()
+        )
+        searchCoordinator = SearchCoordinator(
+            
         )
     }
 }

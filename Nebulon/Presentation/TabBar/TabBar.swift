@@ -19,7 +19,7 @@ struct TabBar: View {
                 .blur(radius: 2)
                 .overlay {
                     RoundedRectangle(cornerRadius: 30)
-                        .stroke(.white.opacity(0.3), lineWidth: 0.6)
+                        .stroke(.white.opacity(0.2), lineWidth: 0.3)
                 }
         }
         .padding(.horizontal, 24)
