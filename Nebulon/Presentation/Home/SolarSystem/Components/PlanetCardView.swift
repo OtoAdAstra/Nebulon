@@ -36,6 +36,7 @@ struct PlanetCardView: View {
             .materialCard(cornerRadius: Design.planetCardRadius)
         }
         .buttonStyle(.plain)
+        
     }
 }
 
