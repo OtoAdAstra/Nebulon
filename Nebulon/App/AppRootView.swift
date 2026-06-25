@@ -1,13 +1,3 @@
-//
-//  AppRootView.swift
-//  Nebulon
-//
-//  Created by Oto Sharvashidze on 05.03.26.
-//
-
-
-// App/AppRootView.swift
-
 import SwiftUI
 
 struct AppRootView: View {

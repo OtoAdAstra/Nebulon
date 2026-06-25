@@ -7,7 +7,6 @@ final class AppCoordinator {
 
     var selectedTab: Tabs = .home
 
-    /// Derived — delegates to the active child coordinator
     var hideTabBar: Bool {
         switch selectedTab {
             case .home: return homeCoordinator.hideTabBar

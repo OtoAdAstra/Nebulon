@@ -22,9 +22,3 @@ struct SolarSystemView: View {
         }
     }
 }
-
-#Preview {
-    SolarSystemView(viewModel: SolarSystemViewModel(), onPlanetTapped: { _ in })
-        .padding()
-        .background(.black)
-}
