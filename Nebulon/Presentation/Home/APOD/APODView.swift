@@ -81,7 +81,7 @@ struct APODView: View {
                 }
                 .padding(Design.cardRadius)
                 .frame(maxWidth: .infinity, alignment: .leading)
-                .cardBackground()
+                .materialCard()
                 .padding(.horizontal, Design.contentPadding)
 
                 // Details
@@ -100,7 +100,7 @@ struct APODView: View {
                 }
                 .padding(Design.cardRadius)
                 .frame(maxWidth: .infinity, alignment: .leading)
-                .cardBackground()
+                .materialCard()
                 .padding(.horizontal, Design.contentPadding)
                 .padding(.vertical, Design.cardRadius)
             }

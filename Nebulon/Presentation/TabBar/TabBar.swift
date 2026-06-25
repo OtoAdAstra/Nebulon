@@ -13,15 +13,7 @@ struct TabBar: View {
         .padding(.horizontal, 16)
         .padding(.vertical, 12)
         .animation(.spring(response: 0.2, dampingFraction: 0.7), value: selectedTab)
-        .background {
-            RoundedRectangle(cornerRadius: 30)
-                .fill(.ultraThinMaterial)
-                .blur(radius: 2)
-                .overlay {
-                    RoundedRectangle(cornerRadius: 30)
-                        .stroke(.white.opacity(0.2), lineWidth: 0.3)
-                }
-        }
+        .modifier(TabBarBackground())
         .padding(.horizontal, 14)
     }
 
@@ -60,5 +52,32 @@ struct TabBar: View {
         }
         .frame(maxWidth: .infinity)
         .buttonStyle(.plain)
+    }
+}
+
+// MARK: - Background
+
+private struct TabBarBackground: ViewModifier {
+    private let cornerRadius: CGFloat = 30
+
+    func body(content: Content) -> some View {
+        if #available(iOS 26, *) {
+            content
+                .glassEffect(
+                    .regular,
+                    in: RoundedRectangle(cornerRadius: cornerRadius)
+                )
+        } else {
+            content
+                .background {
+                    RoundedRectangle(cornerRadius: cornerRadius)
+                        .fill(.ultraThinMaterial)
+                        .blur(radius: 2)
+                        .overlay {
+                            RoundedRectangle(cornerRadius: cornerRadius)
+                                .stroke(.white.opacity(0.2), lineWidth: 0.3)
+                        }
+                }
+        }
     }
 }

@@ -2,15 +2,18 @@ import SwiftUI
 
 struct MaterialCardModifier: ViewModifier {
     var cornerRadius: CGFloat = Design.cardRadius
+    var cardOpacity: CGFloat = Design.cardBackgroundOpacity
 
     func body(content: Content) -> some View {
         if #available(iOS 26, *) {
             content
-                .glassEffect(.regular, in: RoundedRectangle(cornerRadius: cornerRadius))
-                .overlay(stroke)
+                .glassEffect(
+                    .clear,
+                    in: RoundedRectangle(cornerRadius: cornerRadius)
+                )
         } else {
             content
-                .background(.ultraThinMaterial.opacity(0.6))
+                .background(.ultraThinMaterial.opacity(cardOpacity))
                 .clipShape(RoundedRectangle(cornerRadius: cornerRadius))
                 .overlay(stroke)
         }
@@ -22,24 +25,10 @@ struct MaterialCardModifier: ViewModifier {
     }
 }
 
-struct CardBackgroundModifier: ViewModifier {
-    var cornerRadius: CGFloat = Design.cardRadius
-
-    func body(content: Content) -> some View {
-        content
-            .background(Color.white.opacity(Design.cardBackgroundOpacity))
-            .clipShape(RoundedRectangle(cornerRadius: cornerRadius))
-    }
-}
-
 extension View {
-    /// Frosted glass card style with material background and border
+
     func materialCard(cornerRadius: CGFloat = Design.cardRadius) -> some View {
         modifier(MaterialCardModifier(cornerRadius: cornerRadius))
     }
-
-    /// Subtle translucent card background
-    func cardBackground(cornerRadius: CGFloat = Design.cardRadius) -> some View {
-        modifier(CardBackgroundModifier(cornerRadius: cornerRadius))
-    }
+    
 }

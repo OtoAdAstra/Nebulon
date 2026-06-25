@@ -15,8 +15,20 @@ struct DismissButton: View {
                 .font(.system(size: 22, weight: .semibold))
                 .foregroundStyle(.white)
                 .frame(width: Design.dismissButtonSize, height: Design.dismissButtonSize)
-                .background(.ultraThinMaterial, in: Circle())
+                .modifier(DismissButtonBackground())
                 .padding()
+        }
+    }
+}
+
+private struct DismissButtonBackground: ViewModifier {
+    func body(content: Content) -> some View {
+        if #available(iOS 26, *) {
+            content
+                .glassEffect(.clear.interactive(), in: Circle())
+        } else {
+            content
+                .background(.ultraThinMaterial, in: Circle())
         }
     }
 }

@@ -2,8 +2,6 @@ import SwiftUI
 
 enum Design {
 
-    // MARK: - Global
-
     /// Horizontal padding for section headers (e.g. "Solar System", "News")
     static let sectionPadding: CGFloat = 28
 
@@ -23,7 +21,7 @@ enum Design {
     static let borderWidth: CGFloat = 0.5
 
     /// Opacity for subtle card background fills
-    static let cardBackgroundOpacity: CGFloat = 0.05
+    static let cardBackgroundOpacity: CGFloat = 0.6
 
     /// Opacity for secondary text (e.g. planet subtitle, stat labels)
     static let secondaryTextOpacity: CGFloat = 0.45
@@ -52,8 +50,6 @@ enum Design {
 
     /// Height of the 3D planet model in planet detail view
     static let planet3DHeight: CGFloat = 380
-
-    // MARK: - DismissButton
 
     /// Size of dismiss/back buttons (circle diameter)
     static let dismissButtonSize: CGFloat = 42

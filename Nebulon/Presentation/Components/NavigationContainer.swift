@@ -1,7 +1,5 @@
 import SwiftUI
 
-/// Wraps any view with a left-edge swipe-to-dismiss gesture.
-/// Pair with `.transition(.move(edge: .trailing))` for a slide-in-from-right + swipe-back-to-dismiss flow.
 struct NavigationContainer<Content: View>: View {
     let onDismiss: () -> Void
     @ViewBuilder let content: () -> Content
@@ -18,10 +16,10 @@ struct NavigationContainer<Content: View>: View {
 
         ZStack(alignment: .leading) {
             content()
-                .offset(x: dragOffset)
                 .overlay(alignment: .topLeading) {
                     DismissButton("chevron.left") { onDismiss() }
                 }
+                .offset(x: dragOffset)
 
             Color.clear
                 .frame(width: edgeWidth)
