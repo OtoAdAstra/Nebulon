@@ -1,9 +1,3 @@
-// Presentation/APOD/APODViewModel.swift
-
-// Knows about: UseCase (Domain), APOD entity (Domain)
-// Knows nothing about: networking, JSON, URLSession
-// Owns UI state — loading, loaded, error
-
 import Foundation
 
 @MainActor
