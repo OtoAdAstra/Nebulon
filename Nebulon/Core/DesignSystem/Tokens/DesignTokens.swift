@@ -53,4 +53,38 @@ enum Design {
 
     /// Size of dismiss/back buttons (circle diameter)
     static let dismissButtonSize: CGFloat = 42
+
+    // MARK: - Search
+
+    /// Height of the glass search bar; the round cancel button matches it
+    static let searchBarHeight: CGFloat = 46
+
+    /// Horizontal padding inside the search field capsule
+    static let searchFieldPadding: CGFloat = 14
+
+    /// Minimum column width for suggestion chips in the Discover grid
+    static let chipMinWidth: CGFloat = 130
+
+    /// Horizontal padding inside tag/suggestion chips
+    static let chipHorizontalPadding: CGFloat = 14
+
+    /// Vertical padding inside tag/suggestion chips
+    static let chipVerticalPadding: CGFloat = 9
+
+    /// Bottom content inset so scrolling content clears the floating tab bar
+    static let tabBarClearance: CGFloat = 120
+
+    /// Fill opacity for image placeholders while media loads
+    static let imagePlaceholderOpacity: CGFloat = 0.06
+
+    /// Height of the fade-out gradient at the bottom of detail hero images
+    static let heroFadeHeight: CGFloat = 70
+
+    // MARK: - Glass Fallback (pre-iOS 26)
+
+    /// Stroke opacity for material-fallback outlines (search bar, round buttons)
+    static let glassStrokeOpacity: CGFloat = 0.2
+
+    /// Stroke width for material-fallback outlines
+    static let glassStrokeWidth: CGFloat = 0.3
 }
