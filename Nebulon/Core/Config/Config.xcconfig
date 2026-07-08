@@ -6,3 +6,4 @@ PRODUCT_NAME = Nebulon
 
 NASA_API_KEY = KBxbgb1hAdLjmX8jjmgWVkStxfKLLbwBXGfNbMiJ
 NASA_BASE_URL = https:$()/api.nasa.gov
+NASA_IMAGES_BASE_URL = https:$()/images-api.nasa.gov

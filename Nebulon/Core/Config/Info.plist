@@ -6,5 +6,7 @@
 	<string>$(NASA_API_KEY)</string>
 	<key>NASA_BASE_URL</key>
 	<string>$(NASA_BASE_URL)</string>
+	<key>NASA_IMAGES_BASE_URL</key>
+	<string>$(NASA_IMAGES_BASE_URL)</string>
 </dict>
 </plist>

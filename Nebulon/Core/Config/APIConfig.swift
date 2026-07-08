@@ -1,9 +1,6 @@
 import Foundation
 
 enum APIConfig {
-    // Reads from Info.plist which reads from .xcconfig
-    // App will crash on launch if key is missing — good, fail fast
-    // TODO: - Error handling
     static let nasaKey: String = {
         guard let key = Bundle.main.object(forInfoDictionaryKey: "NASA_API_KEY") as? String,
               !key.isEmpty else {
@@ -16,6 +13,14 @@ enum APIConfig {
         guard let url = Bundle.main.object(forInfoDictionaryKey: "NASA_BASE_URL") as? String,
               !url.isEmpty else {
             fatalError("NASA_BASE_URL missing from Info.plist — check your .xcconfig")
+        }
+        return url
+    }()
+
+    static let nasaImagesBaseURL: String = {
+        guard let url = Bundle.main.object(forInfoDictionaryKey: "NASA_IMAGES_BASE_URL") as? String,
+              !url.isEmpty else {
+            fatalError("NASA_IMAGES_BASE_URL missing from Info.plist — check your .xcconfig")
         }
         return url
     }()
