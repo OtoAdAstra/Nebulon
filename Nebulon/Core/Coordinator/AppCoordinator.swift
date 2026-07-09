@@ -28,7 +28,7 @@ final class AppCoordinator {
             solarSystemViewModel: container.makeSolarSystemViewModel()
         )
         searchCoordinator = SearchCoordinator(
-            
+            searchViewModel: container.makeSearchViewModel()
         )
     }
 }

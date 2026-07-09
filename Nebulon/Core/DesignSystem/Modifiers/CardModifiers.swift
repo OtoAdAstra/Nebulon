@@ -5,10 +5,10 @@ struct MaterialCardModifier: ViewModifier {
     var cardOpacity: CGFloat = Design.cardBackgroundOpacity
 
     func body(content: Content) -> some View {
-        if #available(iOS 26, *) {
+        if #available(iOS 28, *) {
             content
                 .glassEffect(
-                    .clear,
+                    .regular,
                     in: RoundedRectangle(cornerRadius: cornerRadius)
                 )
         } else {

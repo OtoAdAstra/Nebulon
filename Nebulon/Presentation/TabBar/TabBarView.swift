@@ -37,6 +37,8 @@ struct TabBarView: View {
 
 
         }
+        // Keep the tab bar anchored when the keyboard appears
+        .ignoresSafeArea(.keyboard)
     }
     
 }

@@ -15,6 +15,8 @@ struct TabBar: View {
         .animation(.spring(response: 0.2, dampingFraction: 0.7), value: selectedTab)
         .modifier(TabBarBackground())
         .padding(.horizontal, 14)
+        .frame(maxWidth: .infinity)
+        .contentShape(Rectangle())
     }
 
     private func tabButton(_ tab: Tabs) -> some View {
