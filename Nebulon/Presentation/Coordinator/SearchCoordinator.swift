@@ -36,4 +36,11 @@ final class SearchCoordinator {
     func dismissDetail() {
         route = .list
     }
+
+    func resetToDiscover() {
+        withAnimation(.easeInOut(duration: 0.3)) {
+            route = .list
+        }
+        searchViewModel.query = ""
+    }
 }

@@ -47,4 +47,12 @@ final class HomeCoordinator {
     func dismissPlanetDetail() {
         route = .list
     }
+
+    // MARK: - Scroll To Top
+
+    private(set) var scrollToTopTrigger = 0
+
+    func scrollToTop() {
+        scrollToTopTrigger += 1
+    }
 }

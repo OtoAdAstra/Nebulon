@@ -1,7 +1,9 @@
 import SwiftUI
 
 struct TabBar: View {
-    @Binding var selectedTab: Tabs
+    let selectedTab: Tabs
+    let onSelect: (Tabs) -> Void
+
     @Namespace private var namespace
 
     var body: some View {
@@ -21,7 +23,7 @@ struct TabBar: View {
 
     private func tabButton(_ tab: Tabs) -> some View {
         Button {
-            selectedTab = tab
+            onSelect(tab)
         } label: {
             ZStack {
                 if selectedTab == tab {

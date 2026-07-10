@@ -9,6 +9,7 @@ struct HomeView: View {
         ZStack {
             switch coordinator.route {
                 case .list:
+                    ScrollViewReader { proxy in
                     ScrollView(showsIndicators: false) {
                         VStack(spacing: 60) {
                             APODCardView(viewModel: coordinator.apodViewModel)
@@ -44,6 +45,7 @@ struct HomeView: View {
                         .padding(.vertical, 6)
                         .padding(.bottom, 56)
                         .padding(.horizontal, Design.contentPadding)
+                        .id("home_top")
                     }
                     .safeAreaInset(edge: .top) {
                         AppNameView()
@@ -52,6 +54,12 @@ struct HomeView: View {
                     }
                     .task {
                         await coordinator.apodViewModel.onAppear()
+                    }
+                    .onChange(of: coordinator.scrollToTopTrigger) {
+                        withAnimation(.easeInOut(duration: 0.4)) {
+                            proxy.scrollTo("home_top", anchor: .top)
+                        }
+                    }
                     }
 
                 case .apodDetail:
