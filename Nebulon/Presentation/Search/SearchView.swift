@@ -1,3 +1,4 @@
+import SkeletonUI
 import SwiftUI
 
 struct SearchView: View {
@@ -130,8 +131,18 @@ private struct SearchListView: View {
 
     private var skeletonGrid: some View {
         LazyVGrid(columns: columns, spacing: Design.itemSpacing) {
-            ForEach(0..<6, id: \.self) { _ in
-                SkeletonCard()
+            ForEach(0..<8, id: \.self) { _ in
+                Color.clear
+                    .skeleton(
+                        with: true,
+                        animation: .pulse(),
+                        appearance: .solid(
+                            color: .white.opacity(0.08),
+                            background: .white.opacity(0.03)
+                        ),
+                        shape: .rounded(.radius(Design.cardRadius, style: .continuous))
+                    )
+                    .aspectRatio(1, contentMode: .fit)
             }
         }
         .padding(.top, 8)
@@ -172,24 +183,6 @@ private struct SearchListView: View {
             }
             .buttonStyle(.plain)
         }
-    }
-}
-
-// MARK: - Skeleton Card
-
-/// Loading placeholder shaped exactly like a MediaCardView cell
-private struct SkeletonCard: View {
-    @State private var pulsing = false
-
-    var body: some View {
-        RoundedRectangle(cornerRadius: Design.cardRadius, style: .continuous)
-            .fill(.white.opacity(pulsing ? 0.10 : 0.04))
-            .aspectRatio(1, contentMode: .fit)
-            .animation(
-                .easeInOut(duration: 0.9).repeatForever(autoreverses: true),
-                value: pulsing
-            )
-            .onAppear { pulsing = true }
     }
 }
 

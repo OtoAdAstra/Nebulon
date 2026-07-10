@@ -1,6 +1,6 @@
 import SwiftUI
 
-struct FullScreenAPODImageView: View {
+struct FullScreenImageView: View {
     let url: String
     @Environment(\.dismiss) private var dismiss
     @State private var scale: CGFloat = 1.0
