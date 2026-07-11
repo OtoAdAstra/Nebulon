@@ -4,6 +4,9 @@ MARKETING_VERSION = 1.0.0
 CURRENT_PROJECT_VERSION = 1
 PRODUCT_NAME = Nebulon
 
-NASA_API_KEY = KBxbgb1hAdLjmX8jjmgWVkStxfKLLbwBXGfNbMiJ
 NASA_BASE_URL = https:$()/api.nasa.gov
 NASA_IMAGES_BASE_URL = https:$()/images-api.nasa.gov
+
+// Secrets live in a gitignored file — see Secrets.example.xcconfig.
+// The "?" makes the include optional so CI can build without it.
+#include? "Secrets.xcconfig"
