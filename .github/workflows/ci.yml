@@ -32,6 +32,9 @@ jobs:
             -destination 'generic/platform=iOS Simulator' \
             CODE_SIGNING_ALLOWED=NO
 
+      # Launch-performance tests measure timing across repeated launches —
+      # meaningless and flaky on slow shared runners, so they run locally only.
+      # NebulonUITests/testExample still runs as a real launch smoke test.
       - name: Test
         run: |
           set -o pipefail
@@ -39,4 +42,6 @@ jobs:
             -project Nebulon.xcodeproj \
             -scheme Nebulon \
             -destination 'platform=iOS Simulator,name=iPhone 17' \
+            -skip-testing:NebulonUITests/NebulonUITestsLaunchTests \
+            -skip-testing:NebulonUITests/NebulonUITests/testLaunchPerformance \
             CODE_SIGNING_ALLOWED=NO
