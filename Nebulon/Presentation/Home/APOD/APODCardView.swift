@@ -45,13 +45,3 @@ struct APODCardView: View {
         }
     }
 }
-
-#Preview {
-    APODCardView(
-        viewModel: APODViewModel(
-            fetchAPODUseCase: FetchAPODUseCase(
-                repository: APODRepository(client: NetworkClient())
-            )
-        )
-    )
-}

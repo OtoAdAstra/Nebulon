@@ -1,5 +1,3 @@
-// Presentation/Home/SolarSystem/SolarSystemViewModel.swift
-
 import Foundation
 
 @MainActor

@@ -34,8 +34,6 @@ final class AppCoordinator {
 
     // MARK: - Tab Selection
 
-    /// Apple-style tab behavior: first tap switches, tapping the
-    /// already-selected tab resets it back to its root state
     func select(_ tab: Tabs) {
         guard tab == selectedTab else {
             selectedTab = tab

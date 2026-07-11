@@ -1,8 +1,3 @@
-protocol FetchAPODUseCaseProtocol {
-    func execute() async throws -> APOD
-    func execute(date: String) async throws -> APOD
-}
-
 struct FetchAPODUseCase: FetchAPODUseCaseProtocol {
     private let repository: APODRepositoryProtocol
 
@@ -10,12 +5,10 @@ struct FetchAPODUseCase: FetchAPODUseCaseProtocol {
         self.repository = repository
     }
 
-    // Today's APOD
     func execute() async throws -> APOD {
         try await repository.fetchAPOD()
     }
 
-    // Specific date
     func execute(date: String) async throws -> APOD {
         try await repository.fetchAPOD(date: date)
     }

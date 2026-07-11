@@ -1,7 +1,3 @@
-// Lives in Core because NetworkClient throws these
-// Data layer catches and potentially re-throws them
-// Domain never sees these — Domain uses its own errors if needed
-
 import Foundation
 
 enum NetworkError: LocalizedError {

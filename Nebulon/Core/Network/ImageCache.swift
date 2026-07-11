@@ -1,5 +1,3 @@
-// Core/Network/ImageCache.swift
-
 import Foundation
 
 final class ImageCache {
@@ -9,7 +7,6 @@ final class ImageCache {
         diskPath: "nebulon_image_cache"
     )
 
-    /// A URLSession wired to our custom cache
     static let session: URLSession = {
         let config = URLSessionConfiguration.default
         config.urlCache = cache

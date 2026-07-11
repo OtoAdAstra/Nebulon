@@ -1,6 +1,3 @@
-// Knows about: NetworkClient (Core), NASAEndpoint (Data), APODDTO (Data)
-// Returns: APOD (Domain) — the only Domain type it touches
-
 final class APODRepository: APODRepositoryProtocol {
     private let client: NetworkClientProtocol
 

@@ -12,7 +12,6 @@ final class SearchViewModel {
     private(set) var totalHits: Int = 0
     private(set) var isLoadingMore = false
 
-    /// Curated starting points shown before the user types anything
     let suggestions = [
         "Nebula", "Black Hole", "Apollo 11", "Mars Rover",
         "Saturn", "Galaxy", "Supernova", "Earth at Night",
@@ -35,7 +34,7 @@ final class SearchViewModel {
 
     private var searchTask: Task<Void, Never>?
     private var currentPage = 1
-    private var loadedIDs = Set<String>() // the API can repeat items across pages
+    private var loadedIDs = Set<String>()
 
     private var canLoadMore: Bool {
         results.count < totalHits
@@ -59,10 +58,8 @@ final class SearchViewModel {
         startSearch(debounced: false)
     }
 
-    /// Called from each grid cell — fetches the next page when the user nears the end
     func loadMoreIfNeeded(current media: SpaceMedia) {
         guard canLoadMore, !isLoadingMore, state == .loaded else { return }
-        // Trigger when the visible item is within the last row or two
         guard let index = results.firstIndex(of: media),
               index >= results.count - 4 else { return }
         loadNextPage()
@@ -80,8 +77,6 @@ final class SearchViewModel {
         startSearch(debounced: true)
     }
 
-    /// Debounce via task cancellation: every keystroke cancels the previous
-    /// in-flight task, so only the last query within the window hits the network.
     private func startSearch(debounced: Bool) {
         searchTask?.cancel()
         let queryToRun = query
@@ -122,7 +117,6 @@ final class SearchViewModel {
             guard let self else { return }
             do {
                 let page = try await searchUseCase.execute(query: queryToRun, page: nextPage)
-                // Discard if the query changed while this page was in flight
                 guard queryToRun == self.query, self.state == .loaded else { return }
 
                 self.append(page.items)

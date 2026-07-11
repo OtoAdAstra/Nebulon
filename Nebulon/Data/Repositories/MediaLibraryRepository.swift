@@ -1,6 +1,3 @@
-// Knows about: NetworkClient (Core), NASAImageLibraryEndpoint (Data), NASAImageSearchDTO (Data)
-// Returns: SpaceMediaPage (Domain)
-
 final class MediaLibraryRepository: MediaLibraryRepositoryProtocol {
     private let client: NetworkClientProtocol
     private let pageSize: Int
