@@ -65,6 +65,10 @@ final class APODViewModel {
         return isStale
     }
 
+    func retry() async {
+        await loadTodaysAPOD()
+    }
+
     private func loadTodaysAPOD() async {
         await load {
             try await fetchImageAPOD()

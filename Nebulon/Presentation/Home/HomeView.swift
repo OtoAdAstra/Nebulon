@@ -12,25 +12,32 @@ struct HomeView: View {
                     ScrollViewReader { proxy in
                     ScrollView(showsIndicators: false) {
                         VStack(spacing: 60) {
-                            APODCardView(viewModel: coordinator.apodViewModel)
-                                .skeleton(
-                                    with: !coordinator.apodViewModel.isFullyLoaded,
-                                    animation: .pulse(),
-                                    appearance: .solid(
-                                        color: .white.opacity(0.08),
-                                        background: .white.opacity(0.03)
-                                    ),
-                                    shape: .rounded(.radius(Design.heroRadius, style: .continuous))
-                                )
-                                .aspectRatio(Design.apodAspectRatio, contentMode: .fit)
-                                .clipShape(RoundedRectangle(cornerRadius: Design.heroRadius))
-                                .matchedGeometryEffect(id: "apod_hero", in: heroNamespace)
-                                .onTapGesture {
-                                    guard coordinator.apodViewModel.isFullyLoaded else { return }
-                                    withAnimation(.spring(response: 0.5, dampingFraction: 0.85)) {
-                                        coordinator.showAPODDetail()
-                                    }
+                            if case .error(let message) = coordinator.apodViewModel.state {
+                                APODErrorView(message: message) {
+                                    Task { await coordinator.apodViewModel.retry() }
                                 }
+                                .aspectRatio(Design.apodAspectRatio, contentMode: .fit)
+                            } else {
+                                APODCardView(viewModel: coordinator.apodViewModel)
+                                    .skeleton(
+                                        with: !coordinator.apodViewModel.isFullyLoaded,
+                                        animation: .pulse(),
+                                        appearance: .solid(
+                                            color: .white.opacity(0.08),
+                                            background: .white.opacity(0.03)
+                                        ),
+                                        shape: .rounded(.radius(Design.heroRadius, style: .continuous))
+                                    )
+                                    .aspectRatio(Design.apodAspectRatio, contentMode: .fit)
+                                    .clipShape(RoundedRectangle(cornerRadius: Design.heroRadius))
+                                    .matchedGeometryEffect(id: "apod_hero", in: heroNamespace)
+                                    .onTapGesture {
+                                        guard coordinator.apodViewModel.isFullyLoaded else { return }
+                                        withAnimation(.spring(response: 0.5, dampingFraction: 0.85)) {
+                                            coordinator.showAPODDetail()
+                                        }
+                                    }
+                            }
 
                             SolarSystemView(viewModel: coordinator.solarSystemViewModel) { planet in
                                 withAnimation(.easeInOut(duration: 0.3)) {
