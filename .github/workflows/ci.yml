@@ -15,6 +15,14 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
+      # Secrets.xcconfig is gitignored; without a key the app fail-fasts
+      # on launch and every UI test dies. NASA's public DEMO_KEY is the
+      # fallback; set a NASA_API_KEY repo secret to use a real one.
+      - name: Create CI secrets file
+        env:
+          NASA_API_KEY: ${{ secrets.NASA_API_KEY }}
+        run: echo "NASA_API_KEY = ${NASA_API_KEY:-DEMO_KEY}" > Nebulon/Core/Config/Secrets.xcconfig
+
       - name: Build
         run: |
           set -o pipefail
