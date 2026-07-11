@@ -8,8 +8,11 @@ struct NewsRow: View {
     let url: String
     @State private var showSafari = false
 
+    private var destination: URL? { URL(string: url) }
+
     var body: some View {
         Button {
+            guard destination != nil else { return }
             showSafari = true
         } label: {
             HStack(spacing: Design.itemSpacing) {
@@ -40,8 +43,10 @@ struct NewsRow: View {
             .padding(.vertical, 12)
         }
         .sheet(isPresented: $showSafari) {
-            SafariView(url: URL(string: url)!)
-                .ignoresSafeArea()
+            if let destination {
+                SafariView(url: destination)
+                    .ignoresSafeArea()
+            }
         }
     }
     
