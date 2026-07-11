@@ -78,7 +78,7 @@ struct SearchListView: View {
     private var resultsGrid: some View {
         VStack(alignment: .leading, spacing: Design.itemSpacing) {
             Text("\(viewModel.totalHits.formatted()) results")
-                .font(.system(size: 13))
+                .font(Design.metaFont)
                 .foregroundStyle(.white.opacity(Design.tertiaryTextOpacity))
                 .padding(.top, 8)
 
@@ -140,7 +140,7 @@ struct SearchListView: View {
             Button("Try Again") {
                 viewModel.retry()
             }
-            .font(.system(size: 15, weight: .semibold))
+            .font(Design.actionLabelFont)
             .foregroundStyle(Color("LightCyan"))
             .padding(.horizontal, 20)
             .padding(.vertical, 10)

@@ -36,14 +36,14 @@ struct MediaCardView: View {
     private var titleScrim: some View {
         VStack(alignment: .leading, spacing: 2) {
             Text(media.title)
-                .font(.system(size: 13, weight: .semibold))
+                .font(Design.cardTitleFont)
                 .foregroundStyle(.white)
                 .lineLimit(2)
                 .multilineTextAlignment(.leading)
 
             if let year = media.dateCreated.map({ $0.formatted(.dateTime.year()) }) {
                 Text(year)
-                    .font(.system(size: 11))
+                    .font(Design.cardCaptionFont)
                     .foregroundStyle(.white.opacity(Design.tertiaryTextOpacity))
             }
         }

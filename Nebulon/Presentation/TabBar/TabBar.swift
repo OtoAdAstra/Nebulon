@@ -41,12 +41,13 @@ struct TabBar: View {
                 }
                 VStack(spacing: 4) {
                     Image(systemName: tab.icon)
-                        .font(.system(size: 22, weight: selectedTab == tab ? .bold : .regular))
+                        .font(Design.tabIconFont)
+                        .fontWeight(selectedTab == tab ? .bold : .regular)
                         .foregroundStyle(selectedTab == tab ? Color("LightCyan") : .white.opacity(0.4))
                         .scaleEffect(selectedTab == tab ? 1.1 : 1.0)
 
                     Text(tab.label)
-                        .font(.system(size: 12, weight: .medium))
+                        .font(Design.tabLabelFont)
                         .foregroundStyle(selectedTab == tab ? .white : .white.opacity(0.4))
                         .fixedSize(horizontal: true, vertical: false)
                 }

@@ -9,9 +9,9 @@ struct ActionButton: View {
         Button(action: action) {
             VStack(spacing: 6) {
                 Image(systemName: icon)
-                    .font(.system(size: 16, weight: .medium))
+                    .font(Design.actionIconFont)
                 Text(label)
-                    .font(.system(size: 12, weight: .medium))
+                    .font(Design.actionCaptionFont)
             }
             .foregroundStyle(.white)
             .frame(maxWidth: .infinity)

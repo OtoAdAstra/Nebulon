@@ -21,11 +21,11 @@ struct TagChip: View {
         HStack(spacing: 6) {
             if let icon {
                 Image(systemName: icon)
-                    .font(.system(size: 12, weight: .medium))
+                    .font(Design.chipIconFont)
                     .foregroundStyle(Color("LightCyan"))
             }
             Text(title)
-                .font(.system(size: 14, weight: .medium))
+                .font(Design.chipFont)
                 .foregroundStyle(.white.opacity(0.85))
                 .lineLimit(1)
         }

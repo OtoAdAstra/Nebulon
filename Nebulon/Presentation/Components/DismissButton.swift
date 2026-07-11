@@ -12,7 +12,7 @@ struct DismissButton: View {
     var body: some View {
         Button(action: action) {
             Image(systemName: icon)
-                .font(.system(size: 22, weight: .semibold))
+                .font(Design.dismissIconFont)
                 .foregroundStyle(.white)
                 .frame(width: Design.dismissButtonSize, height: Design.dismissButtonSize)
                 .modifier(DismissButtonBackground())

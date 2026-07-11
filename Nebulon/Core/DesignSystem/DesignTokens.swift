@@ -80,6 +80,65 @@ enum Design {
     /// Height of the fade-out gradient at the bottom of detail hero images
     static let heroFadeHeight: CGFloat = 70
 
+    // MARK: - Typography
+    // Semantic text styles (.footnote, .caption…) instead of fixed sizes,
+    // so every label scales with the user's Dynamic Type setting
+
+    /// Monospaced section headers ("DISCOVER", "SOLAR SYSTEM")
+    static let sectionHeaderFont: Font = .system(.headline, design: .monospaced, weight: .bold)
+
+    /// Primary line on grid/carousel cards
+    static let cardTitleFont: Font = .footnote.weight(.semibold)
+
+    /// Secondary line on cards (dates, subtitles)
+    static let cardCaptionFont: Font = .caption2
+
+    /// Small pill badges (e.g. "Astronomy Picture of the Day")
+    static let badgeFont: Font = .caption2.weight(.semibold)
+
+    /// Chip labels (suggestions, keywords)
+    static let chipFont: Font = .subheadline.weight(.medium)
+
+    /// Icons inside chips
+    static let chipIconFont: Font = .caption.weight(.medium)
+
+    /// Row title / subtitle in lists (news)
+    static let rowTitleFont: Font = .subheadline.weight(.medium)
+    static let rowSubtitleFont: Font = .caption2
+
+    /// Disclosure chevrons in rows
+    static let disclosureFont: Font = .caption.weight(.semibold)
+
+    /// Meta text (result counts, timestamps)
+    static let metaFont: Font = .footnote
+
+    /// Emphasized button labels ("Try Again")
+    static let actionLabelFont: Font = .subheadline.weight(.semibold)
+
+    /// Icons in the search bar (magnifier, clear, cancel)
+    static let searchIconFont: Font = .callout.weight(.medium)
+
+    /// Action bar under detail heroes (Copy / Share / Wallpaper)
+    static let actionIconFont: Font = .callout.weight(.medium)
+    static let actionCaptionFont: Font = .caption.weight(.medium)
+
+    /// Icons in detail-card rows
+    static let detailIconFont: Font = .subheadline
+
+    /// Tab bar icon and label
+    static let tabIconFont: Font = .title2
+    static let tabLabelFont: Font = .caption.weight(.medium)
+
+    /// Dismiss/back circular button icon
+    static let dismissIconFont: Font = .title2.weight(.semibold)
+
+    /// Empty/error state title and message
+    static let statusTitleFont: Font = .headline
+    static let statusMessageFont: Font = .subheadline
+
+    /// Brand tagline in the header lockup — fixed size, pure branding
+    static let brandTaglineFont: Font = .system(size: 9, weight: .bold)
+
     // MARK: - Glass Fallback (pre-iOS 26)
 
     /// Stroke opacity for material-fallback outlines (search bar, round buttons)

@@ -14,7 +14,7 @@ struct NewsRow: View {
         } label: {
             HStack(spacing: Design.itemSpacing) {
                 Image(systemName: icon)
-                    .font(.system(size: 14, weight: .medium))
+                    .font(Design.detailIconFont)
                     .foregroundStyle(.white.opacity(0.7))
                     .frame(width: 32, height: 32)
                     .background(.white.opacity(0.07))
@@ -22,18 +22,18 @@ struct NewsRow: View {
 
                 VStack(alignment: .leading, spacing: 2) {
                     Text(title)
-                        .font(.system(size: 14, weight: .medium))
+                        .font(Design.rowTitleFont)
                         .foregroundStyle(.white.opacity(0.85))
 
                     Text(subtitle)
-                        .font(.system(size: 11))
+                        .font(Design.rowSubtitleFont)
                         .foregroundStyle(.white.opacity(0.35))
                 }
 
                 Spacer()
 
                 Image(systemName: "chevron.right")
-                    .font(.system(size: 12, weight: .semibold))
+                    .font(Design.disclosureFont)
                     .foregroundStyle(.white.opacity(0.2))
             }
             .padding(.horizontal, 14)

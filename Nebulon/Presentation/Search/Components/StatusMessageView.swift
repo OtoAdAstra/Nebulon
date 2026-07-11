@@ -25,11 +25,11 @@ struct StatusMessageView<Action: View>: View {
                 .foregroundStyle(.white.opacity(0.25))
 
             Text(title)
-                .font(.system(size: 18, weight: .semibold))
+                .font(Design.statusTitleFont)
                 .foregroundStyle(.white.opacity(0.8))
 
             Text(message)
-                .font(.system(size: 14))
+                .font(Design.statusMessageFont)
                 .foregroundStyle(.white.opacity(Design.secondaryTextOpacity))
                 .multilineTextAlignment(.center)
 

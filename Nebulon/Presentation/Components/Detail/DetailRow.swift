@@ -13,7 +13,7 @@ struct DetailRow: View {
                     .fill(iconColor.opacity(0.2))
                     .frame(width: 36, height: 36)
                 Image(systemName: icon)
-                    .font(.system(size: 14))
+                    .font(Design.detailIconFont)
                     .foregroundStyle(iconColor)
             }
 

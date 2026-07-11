@@ -24,10 +24,10 @@ struct PlanetCardView: View {
 
                 VStack(spacing: 2) {
                     Text(planet.name)
-                        .font(.system(size: 13, weight: .semibold))
+                        .font(Design.cardTitleFont)
                         .foregroundStyle(.white)
                     Text(planet.subtitle)
-                        .font(.system(size: 10))
+                        .font(Design.cardCaptionFont)
                         .foregroundStyle(.white.opacity(Design.secondaryTextOpacity))
                 }
                 .padding(.bottom)

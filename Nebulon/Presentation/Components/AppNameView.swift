@@ -23,7 +23,7 @@ struct AppNameView: View {
                     .fontWeight(.semibold)
                     .foregroundStyle(.white)
                 Text("EXPLORER")
-                    .font(.system(size: 9, weight: .bold))
+                    .font(Design.brandTaglineFont)
                     .tracking(2)
                     .foregroundStyle(.blue.opacity(0.7))
             }

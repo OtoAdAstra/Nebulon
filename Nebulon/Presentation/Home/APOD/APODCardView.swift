@@ -18,7 +18,7 @@ struct APODCardView: View {
 
                 VStack(alignment: .leading, spacing: 8) {
                     Text("Astronomy Picture of the Day")
-                        .font(.system(size: 11, weight: .semibold))
+                        .font(Design.badgeFont)
                         .foregroundStyle(.white)
                         .padding(.horizontal, 10)
                         .padding(.vertical, 5)

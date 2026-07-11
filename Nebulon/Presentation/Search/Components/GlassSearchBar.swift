@@ -33,7 +33,7 @@ struct GlassSearchBar: View {
     private var searchField: some View {
         HStack(spacing: 8) {
             Image(systemName: "magnifyingglass")
-                .font(.system(size: 16, weight: .medium))
+                .font(Design.searchIconFont)
                 .foregroundStyle(.white.opacity(Design.secondaryTextOpacity))
 
             TextField("", text: $text, prompt: prompt)
@@ -49,7 +49,7 @@ struct GlassSearchBar: View {
                     text = ""
                 } label: {
                     Image(systemName: "xmark.circle.fill")
-                        .font(.system(size: 16))
+                        .font(Design.searchIconFont)
                         .foregroundStyle(.white.opacity(Design.secondaryTextOpacity))
                 }
                 .buttonStyle(.plain)
@@ -73,7 +73,7 @@ struct GlassSearchBar: View {
             isFocused = false
         } label: {
             Image(systemName: "xmark")
-                .font(.system(size: 15, weight: .semibold))
+                .font(Design.actionLabelFont)
                 .foregroundStyle(.white)
                 .frame(width: Design.searchBarHeight, height: Design.searchBarHeight)
                 .contentShape(Circle())
